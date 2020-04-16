@@ -5,7 +5,7 @@
 	<arg name="scan_topic" default="/scan"/>
 	<arg name="map_frame" default="map"/> 
 	<arg name="odom_frame" default="odom"/> 
-	<arg name="base_frame" default="base_link"/> 
+	<arg name="base_frame" default="base_footprint"/> 
 	
     <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping">
       <remap from="scan" to ="$(arg scan_topic)"/>
