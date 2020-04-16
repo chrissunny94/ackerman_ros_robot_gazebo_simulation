@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<robot name="sensor_imu" xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <xacro:macro name="sensor_imu_hector" params="prefix parent *origin">
+
+	  <joint name="${prefix}_joint" type="fixed">
+	      <axis xyz="1 0 0"/>
+	      <!--origin xyz="0 0 0.2825"/-->
+	      <xacro:insert_block name="origin"/>
+	      <parent link="${parent}"/>
+	      <child link="${prefix}_link"/>
+	  </joint>
+
+	  <link name="${prefix}_link">
+	      <inertial>
+	        <mass value="0.001"/>
+	        <origin rpy="0 0 0" xyz="0 0 0"/>
+	        <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.0001"/>
+	      </inertial>
+	      <visual>
+	        <origin rpy="0 0 0" xyz="0 0 0"/>
+	        <geometry>
+	          <box size="0.001 0.001 0.001"/>
+	        </geometry>
+	      </visual>
+	      <collision>
+	        <origin rpy="0 0 0" xyz="0 0 0"/>
+	        <geometry>
+	          <box size=".001 .001 .001"/>
+	        </geometry>
+	      </collision>
+	  </link>
+
+	  <gazebo>
+	    <plugin name="${prefix}_controller" filename="libhector_gazebo_ros_imu.so">
+	       <alwaysOn>true</alwaysOn>
+	       <topicName>imu/data</topicName>
+		   <serviceName>${prefix}imu/service</serviceName>
+		   <bodyName>${prefix}_link</bodyName>
+		   <frameId>${prefix}_link</frameId>
+	       <updateRate>50.0</updateRate>
+
+	       <gaussianNoise>0.00</gaussianNoise>
+           <yawOffset>0.0</yawOffset>
+           <yawDrift>0.0</yawDrift>
+           <yawGaussianNoise>0.0</yawGaussianNoise>
+
+           <!-- angular velocities parameters -->
+           <rateOffset>0.0 0.0 0.0</rateOffset>
+           <rateDrift>0.0 0.0 0.0</rateDrift>
+           <rateGaussianNoise>0.0 0.0 0.0</rateGaussianNoise>
+
+           <!-- linear accelerations parameters -->
+           <accelOffset>0.0 0.0 0.0</accelOffset>
+           <accelDrift>0.0 0.0 0.0</accelDrift>
+           <accelGaussianNoise>0.0 0.0 0.0</accelGaussianNoise>
+	    </plugin>
+	  </gazebo>
+
+  </xacro:macro>
+
+</robot>

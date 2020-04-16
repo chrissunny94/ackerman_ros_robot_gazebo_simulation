@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <xacro:macro name="sensor_rplidar" params="prefix parent prefix_topic:='front_laser' *origin min_angle:=3.14159 max_angle:=-3.14159 gpu:=^|true">
+
+    <joint name="${prefix}_laser_base_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="${prefix}_laser_base_link"/>
+    </joint>
+
+
+    <link name="${prefix}_laser_base_link">
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+         <mesh filename="package://robotnik_sensors/meshes/rplidar.dae"/>
+        </geometry>
+      </collision>
+
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+            <mesh filename="package://robotnik_sensors/meshes/rplidar.dae"/>
+        </geometry>
+      </visual>
+
+      <inertial>
+        <mass value="1e-5" />
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+      </inertial>
+    </link>
+
+    <joint name="${prefix}_laser_joint" type="fixed">
+      <origin xyz="0 0 0.0461" rpy="0 0 0"/>
+      <parent link="${prefix}_laser_base_link"/>
+      <child link="${prefix}_laser_link"/>
+    </joint>
+
+
+    <link name="${prefix}_laser_link">
+    </link>
+
+
+    <sensor_rplidar_gazebo/>
+
+  </xacro:macro>
+
+
+  <xacro:macro name="${prefix}_sensor_rplidar_gazebo">
+    <gazebo reference="${prefix}_laser_link">
+			<xacro:if value="${gpu}">
+        <xacro:property name="ray_type" value="gpu_ray" />
+        <xacro:property name="plugin_lib" value="libgazebo_ros_gpu_laser.so" />
+      </xacro:if>
+      <xacro:unless value="${gpu}">
+        <xacro:property name="ray_type" value="ray" />
+        <xacro:property name="plugin_lib" value="libgazebo_ros_laser.so" />
+      </xacro:unless>
+			<sensor type="${ray_type}" name="${prefix}_rplidar_sensor">
+				<pose>0 0 0 0 0 0</pose>
+				<visualize>false</visualize>
+				<update_rate>10</update_rate>
+				<ray>
+					<scan>
+						<horizontal>
+							<samples>361</samples>
+							<resolution>1</resolution>
+							<min_angle>${min_angle}</min_angle>
+							<max_angle>${max_angle}</max_angle>
+						</horizontal>
+					</scan>
+					<range>
+						<min>0.15</min>
+						<max>6.0</max>
+						<resolution>0.0174</resolution>
+					</range>
+					<noise>
+						<type>gaussian</type>
+						<mean>0.0</mean>
+						<stddev>0.01</stddev>
+					</noise>
+				</ray>
+				<plugin name="${prefix}_controller" filename="${plugin_lib}">
+					<topicName>${prefix_topic}/scan</topicName>
+					<frameName>/${prefix}_laser_link</frameName>
+				</plugin>
+			</sensor>
+	</gazebo>
+  </xacro:macro>
+
+</robot>

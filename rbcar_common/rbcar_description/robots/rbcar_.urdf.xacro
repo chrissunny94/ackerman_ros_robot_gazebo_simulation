@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<robot name="rbcar" xmlns:xacro="http://www.ros.org/wiki/xacro"> 
+
+
+	<!-- ***************** -->
+	<!-- Imported elements -->
+	<!-- ***************** -->
+	
+	<!-- First we import all posible elements defined in the urdf.xacro files. All these elements are defined as macro:xacros -->
+
+	<!-- Import Robotnik CAR base elements -->
+	<xacro:include filename="$(find rbcar_description)/urdf/bases/rbcar_base.urdf.xacro" />
+  
+	<!-- Import Robotnik CAR wheels -->
+	<xacro:include filename="$(find rbcar_description)/urdf/wheels/suspension_wheel.urdf.xacro" />
+    
+	<!-- Import all available sensors -->
+	<xacro:include filename="$(find robotnik_sensors)/urdf/all_sensors.urdf.xacro" />
+     
+	<!-- ***************** -->
+	<!-- Global parameters -->
+	<!-- ***************** -->
+  
+	<xacro:property name="PI" value="3.1415926535897931"/>
+  
+	<!-- Wheel parameters -->
+	<xacro:property name="wheel_offset_x" value="1.25" />    <!-- x,y,z in translation from base_link to the center of the wheel -->
+	<xacro:property name="wheel_offset_y" value="0.525" />    
+	<xacro:property name="wheel_offset_z" value="0.0" />
+
+	<!-- Flag to select the high or low quality model -->
+	<xacro:property name="hq" value="true" />
+
+
+	<!-- *************** -->
+	<!-- Robots Elements -->
+	<!-- *************** -->
+
+	<!-- Here we create the robot elements using the xacro:macros imported at the beggining of this file -->
+
+	<!-- Summit XL base -->
+	<xacro:rbcar_base name="rbcar" publish_bf="true" hq="${hq}" />
+  
+	<!-- Gazebo ros control pluggins -->
+	<xacro:ros_control/>
+	
+	<!-- Gazebo skid steering pluggins -->
+	<!-- xacro:skid_steering broadcastOdomTF="1"/ -->
+    
+	<!-- WHEELS -->
+
+  <!-- Wheels -->
+  <xacro:front_wheel lr_prefix="left" fr_prefix="front"
+                     lr_reflect="1" fr_reflect="1"/>
+  <xacro:front_wheel lr_prefix="right" fr_prefix="front"
+                     lr_reflect="-1" fr_reflect="1"/>
+  <xacro:rear_wheel lr_prefix="left" fr_prefix="rear"
+                    lr_reflect="1" fr_reflect="-1"/>
+  <xacro:rear_wheel lr_prefix="right" fr_prefix="rear"
+                    lr_reflect="-1" fr_reflect="-1"/>
+
+
+	<!-- SENSORS -->    
+    <xacro:sensor_sick_s3000 prefix="front_laser" parent="base_link">
+		<origin xyz="1.58 0.0 0.0" rpy="0 0.0 0"/>
+	</xacro:sensor_sick_s3000>
+
+	<xacro:sensor_imu prefix="imu" parent="base_link">
+		<origin xyz="0.0 0.0 0.170" rpy="0 0 0"/>
+	</xacro:sensor_imu>
+	
+	<!--xacro:sensor_hokuyo_utm30lx name="hokuyo" parent="base_link">
+		<origin xyz="0.0 0.0 0.33" rpy="0 0 0"/>
+	</xacro:sensor_hokuyo_utm30lx -->
+  
+<!--
+	<xacro:sensor_hokuyo_urg04lx name="hokuyo1" parent="base_link">
+		<origin xyz="-0.1 0.0 0.33" rpy="0 0 0"/>
+	</xacro:sensor_hokuyo_urg04lx>
+-->
+    
+	<!-- xacro:sensor_axis name="camera" parent="base_link">
+		<origin xyz="0.19 0 0.17" rpy="0 ${15*PI/180} 0"/>
+	</xacro:sensor_axis-->
+    
+	<xacro:sensor_gps prefix="gps" parent="base_link">
+		<origin xyz="-0.17 0 1.5" rpy="0 0 0"/>
+	</xacro:sensor_gps>
+	
+<!--
+	<xacro:sensor_asus_xtion_pro name="xtion_pro" parent="base_link">
+		<origin xyz="0.3 0.0 0.3" rpy="0 0 0"/> 
+	</xacro:sensor_asus_xtion_pro>  
+-->
+    
+<!--
+	<xacro:sensor_kinect name="kinect" parent="base_link">
+		<origin xyz="0.3 0.0 0.16" rpy="0 0 0"/> 
+	</xacro:sensor_kinect>  
+  
+-->
+<!--
+	<xacro:sensor_fotonic name="fotonic" parent="base_link">
+		<origin xyz="0.3 0.0 0.24" rpy="0 0 0"/> 
+	</xacro:sensor_fotonic>  
+-->
+
+  <!-- gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so"/>
+  </gazebo -->  
+  <!-- ros control plugin -->
+	
+</robot>
+

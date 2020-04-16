@@ -1,0 +1,6 @@
+robotnik_msgs/ElevatorAction action
+---
+bool result
+robotnik_msgs/ElevatorStatus status
+---
+robotnik_msgs/ElevatorStatus status

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<launch>
+        <!-- maps inside the folder rbcar_localization/maps -->
+	<arg name="map_file" default="test.yaml"/>
+	<arg name="frame_id" default="map"/>
+
+	<!-- Run the map server -->
+	<node name="map_server" pkg="map_server" type="map_server" args="$(find rbcar_localization)/maps/$(arg map_file)">
+		<param name="frame_id" value="$(arg frame_id)"/>
+	</node>
+
+</launch>

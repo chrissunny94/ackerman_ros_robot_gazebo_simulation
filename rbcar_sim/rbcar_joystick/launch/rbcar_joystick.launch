@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<launch>
+
+ <!-- joy node -->
+  <node respawn="true" pkg="joy" type="joy_node" name="joy" >
+    <param name="dev" type="string" value="/dev/input/js1" />
+    <param name="deadzone" value="0.12" />
+  </node>
+
+  <!-- Parameters -->
+  <param name="cmd_topic_vel" value="/rbcar_robot_control/command" type="string"/>
+  <param name="cmd_service_io" value="modbus_io/write_digital_output" type="string"/>
+  
+  <rosparam command="load" file="$(find rbcar_joystick)/launch/ps3.yaml" />
+  <node name="rbcar_joystick" pkg="rbcar_joystick" type="rbcar_joystick_node" output="screen"/>
+  
+</launch>
+

@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<robot name="all_sensors"
+  xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <!-- This file unifies all sensors that can be used on simulation, defined as xacro:macros -->
+
+  <!-- Axis p5512 -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/axis.urdf.xacro" />
+
+  <!-- Axis m5013 -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/axis_m5013.urdf.xacro" />
+
+  <!-- Axis m5525 -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/axis_m5525.urdf.xacro" />
+
+  <!-- Fotonic E Series -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/fotonic_e.urdf.xacro" />
+
+  <!-- GPS -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/gps.urdf.xacro" />
+
+  <!-- Hokuyo urg04lx -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/hokuyo_urg04lx.urdf.xacro" />
+
+  <!-- Hokuyo utm30lx -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/hokuyo_utm30lx.urdf.xacro" />
+
+  <!-- Hokuyo ust10lx -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/hokuyo_ust10lx.urdf.xacro" />
+
+  <!-- Hokuyo ust20lx -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/hokuyo_ust20lx.urdf.xacro" />
+
+  <!-- Hokuyo ust20lx -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/hokuyo_ust20lx.urdf.xacro" />
+
+  <!-- Imu -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/imu.urdf.xacro" />
+
+  <!-- Imu hector -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/imu_hector_plugin.urdf.xacro" />
+
+  <!-- Kinect -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/kinect.urdf.xacro" />
+
+  <!-- Asus Xtion PRO -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/asus_xtion_pro.urdf.xacro" />
+
+  <!-- Hokuyo 3d -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/hokuyo3d.urdf.xacro" />
+
+  <!-- Sick s3000 -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/sick_s3000.urdf.xacro" />
+
+  <!-- Sick s300 -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/sick_s300.urdf.xacro" />
+
+  <!-- Sick microscan3 -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/sick_microscan3.urdf.xacro" />
+
+  <!-- KinectV2 -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/kinectv2.urdf.xacro" />
+
+  <!-- Sick Tim 551 -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/sick_tim551.urdf.xacro" />
+
+  <!-- Sick Tim 571 -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/sick_tim571.urdf.xacro" />
+
+  <!-- Sick Tim 551 -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/sick_tim551.urdf.xacro" />
+
+  <!-- Orbbec Astra -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/orbbec_astra.urdf.xacro" />
+
+  <!-- Zed -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/zed.urdf.xacro" />
+
+  <!-- Rplidar -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/rplidar.urdf.xacro" />
+
+  <!-- Rplidar A2 -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/rplidar_a2.urdf.xacro" />
+
+  <!-- Rplidar A2 -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/rplidar_a2.urdf.xacro" />
+
+  <!-- uEye CP Gige -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/ueye_cp_gige.urdf.xacro" />
+
+  <!-- Pointgrey Bumblebee -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/pointgrey_bumblebee2.urdf.xacro" />
+
+  <!-- Intel Realsense R430 -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/intel_r430.urdf.xacro" />
+
+  <!-- Intel Realsense D435 -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/intel_d435.urdf.xacro" />
+
+  <!-- Velodyne VLP16 -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/velodyne_vlp16.urdf.xacro" />
+
+  <!-- Teraranger Duo-->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/teraranger_tr_duo.urdf.xacro" />
+
+  <!-- Roboteq MGS -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/roboteq_mgs.urdf.xacro" />
+
+  <!-- Benewake CE-30 (all, includes a, c and d) -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/benewake_ce30.urdf.xacro" />
+
+  <!-- Rubedos Viper -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/rubedos_viper.urdf.xacro" />
+
+  <!-- RoboSense RS-Lidar -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/rslidar.urdf.xacro" />
+</robot>

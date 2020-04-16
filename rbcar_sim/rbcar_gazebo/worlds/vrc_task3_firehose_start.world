@@ -1,0 +1,78 @@
+<?xml version='1.0'?>
+<sdf version='1.4'>
+  <world name='default'>
+    <light name='sun' type='directional'>
+      <cast_shadows>1</cast_shadows>
+      <pose>0.000000 0.000000 10.000000 0.000000 0.000000 0.000000</pose>
+      <diffuse>0.800000 0.800000 0.800000 1.000000</diffuse>
+      <specular>0.200000 0.200000 0.200000 1.000000</specular>
+      <attenuation>
+        <range>1000.000000</range>
+        <constant>0.900000</constant>
+        <linear>0.010000</linear>
+        <quadratic>0.001000</quadratic>
+      </attenuation>
+      <direction>0.500000 0.100000 -0.900000</direction>
+    </light>
+
+  <include>
+    <uri>model://ground_plane</uri>
+    <name>ground_plane</name>
+    <pose>0 0 0   0 0 0</pose>
+  </include>
+
+      <physics type='ode'>
+      <max_step_size>0.001000</max_step_size>
+      <real_time_factor>1.000000</real_time_factor>
+      <real_time_update_rate>1000.000000</real_time_update_rate>
+      <gravity>0.000000 0.000000 -9.800000</gravity>
+      <max_contacts>20</max_contacts>
+    </physics>
+    <scene>
+      <ambient>0.400000 0.400000 0.400000 1.000000</ambient>
+      <background>0.700000 0.700000 0.700000 1.000000</background>
+      <shadows>1</shadows>
+    </scene>
+
+    <state world_name='default'>
+      <sim_time>0 0</sim_time>
+      <real_time>0 207512</real_time>
+      <wall_time>1372662656 276170409</wall_time>
+    </state>
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose>3.082640 -6.458740 2.425810 0.000000 0.367643 2.028200</pose>
+        <view_controller>orbit</view_controller>
+      </camera>
+    </gui>
+
+  <!-- road segment ******************************    -->  
+  <include>
+    <uri>model://pavement_plane</uri>
+    <name>pavement_plane_0</name>
+    <pose>0 0 0   0 0 0</pose>
+  </include>
+
+  <include>
+    <uri>model://grass_plane</uri>
+    <name>grass_plane_0_0</name>
+    <pose>0 -1 0   0 0 0</pose>
+  </include>
+
+  <include>
+    <uri>model://grass_plane</uri>
+    <name>grass_plane_0_1</name>
+    <pose>0 2 0   0 0 0</pose>
+  </include>
+
+  <include>
+    <uri>model://grass_plane</uri>
+    <name>grass_plane_0_2</name>
+    <pose>0 1 0   0 0 0</pose>
+  </include>
+
+  <include>
+    <uri>model://grass_plane</uri>
+    <name>grass_plane_0_3</name>
+    <pose>0 -2 0   0 0 0</pose>
+  </include>

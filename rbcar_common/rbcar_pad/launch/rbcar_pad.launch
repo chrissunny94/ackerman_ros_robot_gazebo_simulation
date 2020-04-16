@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="pad_model" default="$(optenv ROBOT_PAD_MODEL ps4)"/>
+  <arg name="pad_deadzone" default="$(optenv ROBOT_PAD_DEADZONE 0.02)" />
+  <arg name="pad_dev" default="$(optenv ROBOT_PAD_DEV /dev/input/js_base)" />
+  <arg name="cmd_topic_vel" default="pad_teleop/cmd_vel"/>
+
+  <!-- joy node -->
+  <node pkg="joy" type="joy_node" name="ps4_joy" output="screen" respawn="true">
+    <param name="dev" type="string" value="$(arg pad_dev)" />
+    <param name="deadzone" value="$(arg pad_deadzone)" />
+  </node>
+
+  <node name="rbcar_pad" pkg="rbcar_pad" type="rbcar_pad_node" output="screen">
+	  <rosparam command="load" file="$(find rbcar_pad)/launch/$(arg pad_model).yaml" />
+  	<param name="cmd_topic_vel" value="$(arg cmd_topic_vel)" type="string"/>
+  </node>
+
+</launch>

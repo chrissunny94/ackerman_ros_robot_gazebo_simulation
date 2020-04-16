@@ -1,0 +1,241 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <world name="default">
+    <physics type="ode">
+      <gravity>0 0 -9.8</gravity>
+      <ode>
+        <solver>
+          <type>quick</type>
+          <iters>40</iters>
+          <sor>1.0</sor>
+        </solver>
+        <constraints>
+          <cfm>0.0</cfm>
+          <erp>0.2</erp>
+          <contact_max_correcting_vel>100.0</contact_max_correcting_vel>
+          <contact_surface_layer>0.0</contact_surface_layer>
+        </constraints>
+      </ode>
+      <max_step_size>0.001</max_step_size>
+    </physics>
+    <!-- A global light source -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <!-- A ground plane -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+    <include>
+      <uri>model://gas_station</uri>
+    </include>
+       
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b1</name>
+      <pose>-25.0 -25.0 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b2</name>
+      <pose>-20.0 -25.0 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b3</name>
+      <pose>-15.0 -25.0 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b4</name>
+      <pose>-10.0 -25.0 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b5</name>
+      <pose>-5.0 -25.0 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b6</name>
+      <pose>0.0 -25.0 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b7</name>
+      <pose>5.0 -25.0 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b8</name>
+      <pose>10.0 -25.0 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b9</name>
+      <pose>15.0 -25.0 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b10</name>
+      <pose>20.0 -25.0 0 0 0 0</pose>
+    </include>
+
+
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b11</name>
+      <pose>-25.0 35.0 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b12</name>
+      <pose>-20.0 35.0 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b13</name>
+      <pose>-15.0 35.0 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b14</name>
+      <pose>-10.0 35.0 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b15</name>
+      <pose>-5.0 35.0 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b16</name>
+      <pose>0.0 35.0 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b17</name>
+      <pose>5.0 35.0 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b18</name>
+      <pose>10.0 35.0 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b19</name>
+      <pose>15.0 35.0 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b20</name>
+      <pose>20.0 35.0 0 0 0 0</pose>
+    </include>
+
+
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b21</name>
+      <pose>-25.0 -20.0 0 0 0 -1.5708</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b22</name>
+      <pose>-25.0 -15.0 0 0 0 -1.5708</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b23</name>
+      <pose>-25.0 -10.0 0 0 0 -1.5708</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b24</name>
+      <pose>-25.0 -5.0 0 0 0 -1.5708</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b25</name>
+      <pose>-25.0 0.0 0 0 0 -1.5708</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b26</name>
+      <pose>-25.0 5.0 0 0 0 -1.5708</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b27</name>
+      <pose>-25.0 10.0 0 0 0 -1.5708</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b28</name>
+      <pose>-25.0 15.0 0 0 0 -1.5708</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b29</name>
+      <pose>-25.0 20.0 0 0 0 -1.5708</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b30</name>
+      <pose>-25.0 25.0 0 0 0 -1.5708</pose>
+    </include>
+
+
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b31</name>
+      <pose>25.0 -20.0 0 0 0 -1.5708</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b32</name>
+      <pose>25.0 -15.0 0 0 0 -1.5708</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b33</name>
+      <pose>25.0 -10.0 0 0 0 -1.5708</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b34</name>
+      <pose>25.0 -5.0 0 0 0 -1.5708</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b35</name>
+      <pose>25.0 0.0 0 0 0 -1.5708</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b36</name>
+      <pose>25.0 5.0 0 0 0 -1.5708</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b37</name>
+      <pose>25.0 10.0 0 0 0 -1.5708</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b38</name>
+      <pose>25.0 15.0 0 0 0 -1.5708</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b39</name>
+      <pose>25.0 20.0 0 0 0 -1.5708</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>b40</name>
+      <pose>25.0 25.0 0 0 0 -1.5708</pose>
+    </include>
+
+  </world>
+</sdf>

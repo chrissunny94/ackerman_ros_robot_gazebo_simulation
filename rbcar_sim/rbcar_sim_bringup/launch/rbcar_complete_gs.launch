@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- start gazebo simulation -->
+  <include file="$(find rbcar_gazebo)/launch/rbcar_gs.launch"/>
+
+  <!-- start robot_control node -->
+  <include file="$(find rbcar_robot_control)/launch/rbcar_robot_control.launch"/>
+
+  <!-- start laser filter -->
+  <!-- include file="$(find rbcar_sim_bringup)/launch/my_laser_filter.launch"/ -->
+  <node name="laser_bounds_filter" type="laser_bounds_filter" pkg="rbcar_navigation" />
+
+</launch>

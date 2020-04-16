@@ -1,0 +1,17 @@
+string TYPE_QUERY_ALL=ALL
+string TYPE_QUERY_TOP=TOP
+string TYPE_BETWEEN_DATE=BETWEEN_DATE
+string TYPE_TOP_BETWEEN_DATE=TOP_BETWEEN_DATE
+string FILTER_TYPE_NOTHING=NOTHING
+string FILTER_TYPE_EVENT=EVENT
+string FILTER_TYPE_ALARM=ALARM
+string FILTER_TYPE_ERROR=ERROR
+string type_query
+string start_date
+string end_date
+int32 top
+string filter_type
+---
+QueryAlarm[] alarms
+bool success
+string msg

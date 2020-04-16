@@ -1,0 +1,26 @@
+obstacle_range: 5
+raytrace_range: 10
+footprint: [[-0.9,-0.60],[1.55,-0.60],[1.55,0.60],[-0.9,0.60]]
+#footprint: [[0.260, 0.0], [0.187, 0.187], [0.0,0.260], [-0.187, 0.187], [-0.260, 0.0], [-0.187, -0.187], [0.0, -0.260], [0.187, -0.187] ]
+#inflation_radius: 0.3
+
+obstacles_layer:
+  enabled: true
+  observation_sources: scan
+#  front_laser:
+#    data_type: LaserScan
+#    topic: front_laser/scan 
+#    marking: true
+#    clearing: true
+  scan: {sensor_frame: velodyne, data_type: LaserScan, topic: scan, marking: true, clearing: true}
+#  back_laser:
+#    data_type: LaserScan
+#    topic: back_laser/scan
+#    clearing: true
+#    marking: true
+
+inflation_layer:
+  enabled: true
+  cost_scaling_factor: 0.0 # the lower, the more cost
+  inflation_radius: 3.5 # big values make it harder to pass through narrow spaces
+

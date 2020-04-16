@@ -1,0 +1,11 @@
+# 
+# RECORD = 1, STOP = 2
+int8 action
+# DIRECTORY TO SAVE THE VIDEO
+string directory
+# PROFILE TO USE DURING THE RECORDING
+string profile
+# id / name of the recording
+string id
+---
+bool ret

@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<robot name="sensor_rslidar" xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <xacro:property name="M_PI" value="3.1415926535897931" />
+
+  <xacro:macro name="sensor_rslidar" params="prefix parent prefix_topic *origin range_min range_max hfov hres vfov vres fps gpu">
+
+    <material name="black_alu">
+      <color rgba="0.9 0.9 0.9 1"/>
+    </material>
+
+    <joint name="${prefix}_base_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="${prefix}_base_link" />
+    </joint>
+
+    <link name="${prefix}_base_link">
+      <visual>
+      <!-- origin xyz="0 0 0" rpy="0 0 1.5708"/ -->
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://robotnik_sensors/meshes/rslidar.stl" />
+        </geometry>
+        <material name="black_alu"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://robotnik_sensors/meshes/rslidar.stl" />
+        </geometry>
+      </collision>
+      <inertial>
+        <!-- The following are not reliable values, and should not be used for modeling -->
+        <mass value="0.564" />
+        <origin xyz="0 0 0" />
+        <inertia ixx="0.003881243" ixy="0.0" ixz="0.0" iyy="0.000498940" iyz="0.0" izz="0.003879257" />
+      </inertial>
+    </link>
+
+    <joint name="${prefix}_joint" type="fixed">
+      <parent link="${prefix}_base_link"/>
+      <child link="${prefix}_link" />
+    </joint>
+    <link name="${prefix}_link"/>
+
+  <sensor_rslidar_gazebo range_min="${range_min}" range_max="${range_max}" hfov="${hfov}" hres="${hres}" vfov="${vfov}" vres="${vres}" fps="${fps}" gpu="${gpu}"/>
+
+  </xacro:macro>
+
+  <xacro:macro name="sensor_rslidar_gazebo" params="range_min range_max hfov hres vfov vres fps gpu">
+    <gazebo reference="${prefix}_link">
+      <xacro:if value="${gpu}">
+        <!-- Using GPU needs: https://github.com/RobotnikAutomation/velodyne_simulator -->
+        <xacro:property name="ray_type" value="gpu_ray" />
+        <xacro:property name="plugin_lib" value="libgazebo_ros_velodyne_gpu_laser.so" />
+      </xacro:if>
+      <xacro:unless value="${gpu}">
+        <xacro:property name="ray_type" value="ray" />
+        <xacro:property name="plugin_lib" value="libgazebo_ros_block_laser.so" />
+      </xacro:unless>
+        <sensor type="${ray_type}" name="${prefix}_sensor">
+          <pose>0 0 0 0 0 0.0</pose>
+          <visualize>false</visualize>
+          <update_rate>${fps}</update_rate>
+          <ray>
+            <scan>
+              <horizontal>
+				<!-- for a high quality simulation -->
+                <samples>${hfov/hres}</samples>
+                <min_angle>-${hfov/2.0*M_PI/180.0}</min_angle>
+                <max_angle>${hfov/2.0*M_PI/180.0}</max_angle>
+              </horizontal>
+              <vertical>
+                <samples>${vfov/vres}</samples>
+                <min_angle>-${vfov/2.0*M_PI/180.0}</min_angle>
+                <max_angle>${vfov/2.0*M_PI/180.0}</max_angle>
+              </vertical>
+            </scan>
+            <range>
+              <min>${range_min}</min>
+              <max>${range_max}</max>
+              <resolution>0.01</resolution>
+            </range>
+            <noise>
+              <type>none</type>
+            </noise>
+          </ray>
+          <plugin name="${prefix}_controller" filename="${plugin_lib}">
+            <topicName>${prefix_topic}/points</topicName>
+            <frameName>/${prefix}_link</frameName>
+            <gaussianNoise>0.008</gaussianNoise>
+          </plugin>
+        </sensor>
+    </gazebo>
+
+  </xacro:macro>
+
+  <xacro:macro name="sensor_rslidar_16" params="prefix parent prefix_topic:='lidar_3d' *origin gpu:=false">
+    <sensor_rslidar prefix="${prefix}" parent="${parent}" prefix_topic="${prefix_topic}" range_min="0.4" range_max="150.0" hfov="360.0" hres="0.1" vfov="30.0" vres="2.0" fps="20.0" gpu="${gpu}" >
+      <xacro:insert_block name="origin" />
+    </sensor_rslidar>
+  </xacro:macro>
+
+  <xacro:macro name="sensor_rslidar_32" params="prefix parent prefix_topic:='lidar_3d' *origin gpu:=false">
+    <sensor_rslidar prefix="${prefix}" parent="${parent}" prefix_topic="${prefix_topic}" range_min="0.4" range_max="200.0" hfov="360.0" hres="0.1" vfov="40.0" vres="0.33" fps="20.0" gpu="${gpu}" >
+      <xacro:insert_block name="origin" />
+    </sensor_rslidar>
+  </xacro:macro>
+
+  <xacro:macro name="sensor_rslidar_ruby" params="prefix parent prefix_topic:='lidar_3d' *origin gpu:=false">
+    <sensor_rslidar prefix="${prefix}" parent="${parent}" prefix_topic="${prefix_topic}" range_min="0.4" range_max="250.0" hfov="360.0" hres="0.1" vfov="40.0" vres="0.1" fps="20.0" gpu="${gpu}" >
+      <xacro:insert_block name="origin" />
+    </sensor_rslidar>
+  </xacro:macro>
+</robot>

@@ -1,0 +1,4 @@
+float32 value
+---
+bool ret
+std_msgs/String errorMessage

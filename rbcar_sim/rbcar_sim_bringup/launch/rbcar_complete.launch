@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- start gazebo simulation -->
+  <include file="$(find rbcar_gazebo)/launch/rbcar.launch"/>
+
+  <!-- start robot_control node 
+  <include file="$(find rbcar_robot_control)/launch/rbcar_robot_control.launch"/>-->
+
+  <!-- start joystick -->
+  <include file="$(find rbcar_joystick)/launch/rbcar_joystick.launch"/>
+
+</launch>

@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!-- Launch file for navsat_transform_node -->
+<launch>
+    <node pkg="robot_localization" type="navsat_transform_node" name="navsat_transform_node" respawn="true" output="screen">
+      <!-- Frequency of the main run loop. -->
+      <param name="frequency" value="30"/>
+
+      <!-- PLEASE READ: Like all nodes in robot_localization, this node assumes that your
+           IMU data is reported in the ENU frame. Many IMUs report data in the NED frame,
+           so you'll want to verify that your data is in the correct frame before using it.  -->
+
+      <!-- If your IMU does not account for magnetic declination -->
+	<!-- This and the next parameter depends on the used IMU: hector IMU plugin already compensated declination?! 
+	TODO -->
+      <param name="magnetic_declination_radians" value="0.001164"/> 
+      <!-- Value for Valencia: 0°4'W, changing by 0°7' E per year -->
+
+      <param name="yaw_offset" value="1.5707963"/>
+
+      <!-- If this is true, the altitude is set to 0 in the output odometry message. Defaults
+           to false. -->
+      <param name="zero_altitude" value="false"/>
+
+      <!-- Publish the transform between utm and world (frame of the input odometry data, in this case /odometry/filtered2 ) -->
+      <param name="broadcast_utm_transform" value="true"/>
+
+      <!-- If this is true, all received odometry data is converted back to a lat/lon
+           and published as a NavSatFix message as /gps/filtered. Defaults to false. -->
+      <param name="publish_filtered_gps" value="false"/>
+
+      <!-- Placeholders for input remapping. Set your topic names as the "to" values.-->
+      <!-- remap from="/gps/fix" to="/fix"/ -->
+      <remap from="/gps/fix" to="/mavros/gps/fix"/>
+      <remap from="/imu/data" to="/imu_data"/>
+      <remap from="/odometry/filtered" to="/odometry/filtered2" />
+      
+      <!-- Placeholders for output remapping.
+      <remap from="/odometry/gps" to=""/>
+      <remap from="/gps/filtered" to=""/>
+      -->
+
+    </node>
+
+</launch>

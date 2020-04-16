@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- start purepursuit node -->
+  <node pkg="robotnik_pp_planner" type="path_marker.py" name="path_marker" output="screen">
+	<!-- param name="frame_id" value="/map" type="string"/ -->
+	<param name="frame_id" value="/odom" type="string"/>
+	<param name="marker_scale_x" value="0.1" type="double"/>
+	<param name="marker_scale_y" value="0.1" type="double"/>
+	<param name="marker_scale_z" value="1.25" type="double"/>
+    <param name="planner" value="robotnik_pp_planner" type="string"/>
+  </node>
+
+</launch>

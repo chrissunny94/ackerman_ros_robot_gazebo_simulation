@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <xacro:property name="rubedos_viper_width" value="0.246"/>
+  <xacro:property name="rubedos_viper_height" value="0.035"/>
+  <xacro:property name="rubedos_viper_depth" value="0.09"/>
+
+  <xacro:macro name="stereo_camera"
+    params="prefix fps baseline hfov width height format near far">
+
+    <gazebo reference="${prefix}_base_link">
+      <sensor type="multicamera" name="stereo_camera">
+        <update_rate>${fps}</update_rate>
+        <camera name="left">
+          <pose>0 0 0 0 0 0 </pose>
+          <horizontal_fov>${hfov}</horizontal_fov>
+          <image>
+            <width>${width}</width>
+            <height>${height}</height>
+            <format>${format}</format>
+          </image>
+          <clip>
+            <near>${near}</near>
+            <far>${far}</far>
+          </clip>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.007</stddev>
+          </noise>
+        </camera>
+        <camera name="right">
+          <pose>${baseline} 0 0 0 0 0</pose>
+          <horizontal_fov>${hfov}</horizontal_fov>
+          <image>
+            <width>${width}</width>
+            <height>${height}</height>
+            <format>${format}</format>
+          </image>
+          <clip>
+            <near>${near}</near>
+            <far>${far}</far>
+          </clip>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.007</stddev>
+          </noise>
+        </camera>
+        <plugin name="stereo_camera_controller" filename="libgazebo_ros_multicamera.so">
+          <alwaysOn>true</alwaysOn>
+          <cameraName>${prefix}</cameraName>
+          <imageTopicName>image_raw</imageTopicName>
+          <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+          <frameName>${prefix}_optical_frame</frameName>
+          <hackBaseline>${baseline}</hackBaseline>
+          <!-- NOTE: Distortion is currently unused -->
+          <distortionK1>0.0</distortionK1>
+          <distortionK2>0.0</distortionK2>
+          <distortionK3>0.0</distortionK3>
+          <distortionT1>0.0</distortionT1>
+          <distortionT2>0.0</distortionT2>
+          <ignoreTfPrefix>1</ignoreTfPrefix>
+        </plugin>
+      </sensor>
+    </gazebo>
+  </xacro:macro>
+
+  <xacro:macro name="rubedos_viper"
+    params="prefix:=bumblebee parent *origin format:=R8G8B8 near:=0.05 far:=300">
+
+    <joint name="${prefix}_base_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="${prefix}_base_link" />
+    </joint>
+
+    <link name="${prefix}_base_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="${rubedos_viper_depth} ${rubedos_viper_height} ${rubedos_viper_width}"/>
+          <!--<mesh filename="package://pointgrey_camera_description/meshes/rubedos_viper.dae"/>-->
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="${rubedos_viper_depth} ${rubedos_viper_height} ${rubedos_viper_width}"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="0.8" />
+        <inertia
+          ixx="${1/12*0.8*(0.036*0.036 + 0.0474*0.0474)}" ixy="0" ixz="0"
+          iyy="${1/12*0.8*(0.157*0.157 + 0.0474*0.0474)}" iyz="0"
+          izz="${1/12*0.8*(0.157*0.157 + 0.036*0.036)}" />
+      </inertial>
+    </link>
+
+    <joint name="${prefix}_optical_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="-1.570796 0 -1.570796" />
+      <!--<origin xyz="0 0 0" rpy="0 0 0" />-->
+      <parent link="${prefix}_base_link" />
+      <child link="${prefix}_optical_frame" />
+    </joint>
+
+    <link name="${prefix}_optical_frame">
+      <inertial>
+        <mass value="1E-5" />
+        <inertia
+          ixx="1E-10" ixy="0" ixz="0"
+          iyy="1E-10" iyz="0"
+          izz="1E-10" />
+      </inertial>
+    </link>
+
+      <xacro:stereo_camera
+        prefix="${prefix}"
+        hfov="1.2217"
+        baseline="0.20"
+        fps="40"
+        width="640"
+        height="480"
+        format="${format}"
+        near="${near}"
+        far="${far}"/>
+  </xacro:macro>
+
+  <xacro:macro name="sensor_rubedos_viper" params="prefix:=myviper parent *origin" >
+    <rubedos_viper prefix="${prefix}" parent="${parent}">
+      <xacro:insert_block name="origin" />
+    </rubedos_viper>
+  </xacro:macro>
+
+</robot>

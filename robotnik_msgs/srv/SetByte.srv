@@ -1,0 +1,4 @@
+byte value
+---
+bool success
+string message

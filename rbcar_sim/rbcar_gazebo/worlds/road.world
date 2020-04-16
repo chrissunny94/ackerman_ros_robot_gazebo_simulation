@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <world name="default">
+    <scene>
+      <grid>false</grid>
+      <shadows>0</shadows>
+      <ambient>0.0 0.0 0.0 1.0</ambient>
+    </scene>
+    <!-- A global light source -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <!-- Invisible ground plane -->
+
+    <include>
+      <uri>model://grass</uri>
+    </include>
+
+    <model name="ground">
+      <link name="body">
+        <collision name="geom">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+            </plane>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>100</mu>
+                <mu2>50</mu2>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+      </link>
+      <static>true</static>
+    </model>
+    <road name="my_road">
+      <width>7.34</width>
+      <point>0 0 0.1</point>
+      <point>40 0 0.1</point>
+      <point>45 2 0.1</point>
+   <point>48 5 0.1</point>
+   <point>50 15 0.1</point>
+      <point>50 40 0.1</point>
+
+    </road>
+  </world>
+</sdf>

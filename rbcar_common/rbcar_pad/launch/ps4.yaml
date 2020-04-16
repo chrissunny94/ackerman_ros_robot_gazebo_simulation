@@ -1,0 +1,6 @@
+num_of_buttons: 15
+axis_linear_speed: 1
+axis_angular_position: 3
+button_speed_up: 2
+button_speed_down: 0
+button_dead_man: 5

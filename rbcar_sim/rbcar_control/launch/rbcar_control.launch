@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- load the controllers -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" ns="/rbcar" args="--shutdown-time 1 --namespace=/rbcar
+					  left_front_shock_controller
+					  left_steering_joint_controller
+					  left_front_axle_controller
+					  right_front_shock_controller
+					  right_steering_joint_controller
+					  right_front_axle_controller
+					  left_rear_shock_controller
+					  left_rear_axle_controller
+					  right_rear_shock_controller
+					  right_rear_axle_controller
+					  joint_read_state_controller                                            
+                      "/>
+
+  <!-- Load joint controller configurations from YAML file to parameter server -->
+  <rosparam file="$(find rbcar_control)/config/rbcar_control.yaml" command="load"/>
+
+  <!-- once the joint_state is published, run the robot_state_publisher, the namespace has to be adapted --> 
+  <!-- convert joint states to TF transforms for rviz, etc -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+    respawn="false" output="screen">
+    <remap from="/joint_states" to="/rbcar/joint_states" />
+  </node>
+  
+  <node pkg="twist_mux" type="twist_mux" name="twist_mux">
+    <rosparam command="load" file="$(find rbcar_control)/config/twist_mux.yaml" />    
+    <remap from="cmd_vel_out" to="/cmd_vel_out" />
+  </node>
+  
+
+</launch>
+

@@ -1,0 +1,4 @@
+# Set control / kinematic / etc. mode
+int8 mode
+---
+bool ret

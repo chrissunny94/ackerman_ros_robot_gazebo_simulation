@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<package>
+  <name>rbcar_robot_control</name>
+  <version>1.0.4</version>
+  <description>The rbcar_robot_control package</description>
+
+
+  <maintainer email="cvillar@robotnik.es">Carlos Villar</maintainer>
+  <maintainer email="rguzman@robotnik.es">Roberto Guzman</maintainer>
+  <maintainer email="rnavarro@robotnik.es">Román Navarro</maintainer>
+  
+  <url type="website">http://wiki.ros.org/rbcar_robot_control</url>
+  <url type="repository">https://github.com/RobotnikAutomation/rbcar_sim</url>
+  <url type="bugtracker">https://github.com/RobotnikAutomation/rbcar_sim/issues</url>
+  <license>BSD</license>
+
+  <author email="rguzman@robotnik.es">Roberto Guzman</author> 
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>ackermann_msgs</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>nav_msgs</build_depend>
+  <build_depend>robotnik_msgs</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>tf</build_depend>
+  <build_depend>diagnostic_msgs</build_depend>
+  <build_depend>diagnostic_updater</build_depend>
+  <run_depend>ackermann_msgs</run_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>nav_msgs</run_depend>
+  <run_depend>robotnik_msgs</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>tf</run_depend>
+
+
+  <export>
+
+  </export>
+</package>

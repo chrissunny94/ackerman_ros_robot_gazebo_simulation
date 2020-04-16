@@ -1,0 +1,102 @@
+base_local_planner: teb_local_planner/TebLocalPlannerROS
+
+TebLocalPlannerROS:
+  odom_topic: odom
+  map_frame: /map
+     
+  # Trajectory
+   
+  teb_autosize: True
+  dt_ref: 0.3
+  dt_hysteresis: 0.1
+  global_plan_overwrite_orientation: False
+  max_global_plan_lookahead_dist: 1         
+  feasibility_check_no_poses: 5
+     
+  # Robot
+          
+  max_vel_x: 2
+  max_vel_x_backwards: 0.0
+  max_vel_y: 0.4
+  max_vel_theta: 0.4
+  acc_lim_x: 0.3
+  acc_lim_y: 0.2
+  acc_lim_theta: 0.2
+  min_turning_radius: 1.0
+  wheelbase: 2.5
+  cmd_angle_instead_rotvel: true # set true in ackermann mode
+  footprint_model: # types: "point", "circular", "two_circles", "line", "polygon"
+    #type: "point"
+    #type: "circular"
+    #radius: 0.25 
+    #type: "line"
+    #line_start: [-0.6, 0.0] 
+    #line_end: [0.6, 0.0] 
+    #type: "two_circles"
+    #front_offset: 0.2 
+    #front_radius: 0.2 
+    #rear_offset: 0.2 
+    #rear_radius: 0.2 
+    type: "polygon"
+    vertices: [[-0.85,-0.60],[1.55,-0.60],[1.55,0.60],[-0.85,0.60]]
+ 
+  # GoalTolerance
+     
+  xy_goal_tolerance: 0.2
+  yaw_goal_tolerance: 0.25
+  free_goal_vel: False
+     
+  # Obstacles
+     
+  min_obstacle_dist: 0.5
+  include_costmap_obstacles: True
+  costmap_obstacles_behind_robot_dist: 1.0
+  obstacle_poses_affected: 30
+  costmap_converter_plugin: "costmap_converter::CostmapToPolygonsDBSMCCH"
+  #costmap_converter_plugin: "costmap_converter::CostmapToLinesDBSRANSAC"
+  #costmap_converter_plugin: "costmap_converter::CostmapToLinesDBSMCCH"
+  #costmap_converter_plugin: "costmap_converter::CostmapToPolygonsDBSConcaveHull"
+  #costmap_converter_plugin: "" # deactivate plugin
+  costmap_converter_spin_thread: True
+  costmap_converter_rate: 5
+  # costmap_converter/CostmapToLinesDBSRANSAC:
+  #    cluster_max_distance: 0.4
+ 
+  # Optimization
+     
+  no_inner_iterations: 5
+  no_outer_iterations: 4
+  optimization_activate: True
+  optimization_verbose: False
+  penalty_epsilon: 0.1
+  weight_max_vel_x: 1
+  weight_max_vel_y: 1
+  weight_max_vel_theta: 1
+  weight_acc_lim_x: 1
+  weight_acc_lim_y: 1
+  weight_acc_lim_theta: 1
+  weight_kinematics_nh: 1000
+  weight_kinematics_forward_drive: 100
+  weight_kinematics_turning_radius: 1
+  weight_optimaltime: 1
+  weight_obstacle: 50
+  weight_dynamic_obstacle: 10 # not in use yet
+  selection_alternative_time_cost: False 
+ 
+  # Homotopy Class Planner
+ 
+  enable_homotopy_class_planning: False
+  enable_multithreading: True
+  selection_cost_hysteresis: 1.0
+  selection_obst_cost_scale: 100.0
+  selection_prefer_initial_plan: 0.95
+  selection_viapoint_cost_scale: 1.0
+  simple_exploration: False
+  max_number_classes: 4
+  roadmap_graph_no_samples: 15
+  roadmap_graph_area_width: 5
+  h_signature_prescaler: 0.5
+  h_signature_threshold: 0.1
+  obstacle_keypoint_offset: 0.1
+  obstacle_heading_threshold: 0.45
+  visualize_hc_graph: False
