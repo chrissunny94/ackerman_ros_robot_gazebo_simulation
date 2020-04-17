@@ -34,6 +34,8 @@ class AckermannDriveJoyop:
 
     def joy_callback(self, joy_msg):
         self.speed = self.map(1,-1,0,1,joy_msg.axes[5] )* self.max_speed;
+        if(joy_msg.buttons[4]):
+            self.speed = -self.map(1,-1,0,1,joy_msg.axes[5] )* self.max_speed;
         self.steering_angle = self.map(-1,1,-1,1,joy_msg.axes[0] * self.max_steering_angle);
 
     def cmd_vel_callback(self, cmd_vel_msg):

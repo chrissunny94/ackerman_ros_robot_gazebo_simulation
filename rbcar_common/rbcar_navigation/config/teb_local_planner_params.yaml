@@ -7,7 +7,7 @@ TebLocalPlannerROS:
   # Trajectory
    
   teb_autosize: True
-  dt_ref: 0.3
+  dt_ref: 1
   dt_hysteresis: 0.1
   global_plan_overwrite_orientation: False
   max_global_plan_lookahead_dist: 1         
@@ -17,12 +17,12 @@ TebLocalPlannerROS:
           
   max_vel_x: 2
   max_vel_x_backwards: 0.0
-  max_vel_y: 0.4
+  max_vel_y: 0
   max_vel_theta: 0.4
   acc_lim_x: 0.3
-  acc_lim_y: 0.2
+  acc_lim_y: 0
   acc_lim_theta: 0.2
-  min_turning_radius: 1.0
+  min_turning_radius: 2
   wheelbase: 2.5
   cmd_angle_instead_rotvel: true # set true in ackermann mode
   footprint_model: # types: "point", "circular", "two_circles", "line", "polygon"
@@ -51,7 +51,7 @@ TebLocalPlannerROS:
   min_obstacle_dist: 0.5
   include_costmap_obstacles: True
   costmap_obstacles_behind_robot_dist: 1.0
-  obstacle_poses_affected: 30
+  obstacle_poses_affected: 10
   costmap_converter_plugin: "costmap_converter::CostmapToPolygonsDBSMCCH"
   #costmap_converter_plugin: "costmap_converter::CostmapToLinesDBSRANSAC"
   #costmap_converter_plugin: "costmap_converter::CostmapToLinesDBSMCCH"
