@@ -8,6 +8,8 @@
   <arg name="base_frame" default="base_footprint"/>
   <arg name="laser_frame" default="front_laser_base_link"/>
   <arg name="scan_topic" default="/scan"/>
+
+  <include file="$(find ackermann_drive_teleop)/launch/ackermann_drive_joyop.launch" />
   
   <!-- Run move_base -->
   <node pkg="move_base" type="move_base" respawn="false" name="move_base">

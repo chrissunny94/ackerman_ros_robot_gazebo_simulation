@@ -5,10 +5,10 @@
   <arg name="debug" default="false"/>
   <arg name="gui" default="true"/>
 
-  <!-- rbcar_control launch file 
-  <include file="$(find rbcar_control)/launch/rbcar_control.launch" />-->
+  <!-- rbcar_control launch file -->
+  <include file="$(find rbcar_control)/launch/rbcar_control.launch" />
   
-  <!-- include file="$(find rbcar_robot_control)/launch/rbcar_robot_control.launch"/ -->
+  <!--include file="$(find rbcar_robot_control)/launch/rbcar_robot_control.launch" / -->
 
   <!-- rbcar_joy launch file -->
   <!-- Include this file only if you wish a the control the robot via joystick, it has to be commented if you want to set goals for autonomous navigation -->

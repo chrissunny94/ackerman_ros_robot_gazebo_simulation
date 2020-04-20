@@ -4,7 +4,7 @@
 <arg name="x_init_pose" default="0"/>
 <arg name="y_init_pose" default="0"/>
 <arg name="z_init_pose" default="0"/>
-<arg name="scan_topic" default="lidar/scan"/>
+<arg name="scan_topic" default="/scan"/>
 <arg name="map_topic" default="map"/>
 <arg name="global_frame" default="map"/>
 <arg name="odom_frame" default="odom"/>

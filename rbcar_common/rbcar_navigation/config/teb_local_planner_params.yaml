@@ -29,16 +29,16 @@ TebLocalPlannerROS:
     #type: "point"
     #type: "circular"
     #radius: 0.25 
-    #type: "line"
-    #line_start: [-0.6, 0.0] 
-    #line_end: [0.6, 0.0] 
+    type: "line"
+    line_start: [-0.6, 0.0] 
+    line_end: [0.6, 0.0] 
     #type: "two_circles"
     #front_offset: 0.2 
     #front_radius: 0.2 
     #rear_offset: 0.2 
     #rear_radius: 0.2 
-    type: "polygon"
-    vertices: [[-0.85,-0.60],[1.55,-0.60],[1.55,0.60],[-0.85,0.60]]
+    #type: "polygon"
+    #vertices: [[-0.85,-0.60],[1.55,-0.60],[1.55,0.60],[-0.85,0.60]]
  
   # GoalTolerance
      

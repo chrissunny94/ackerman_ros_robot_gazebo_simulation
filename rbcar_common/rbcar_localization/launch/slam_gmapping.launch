@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <launch>
-	
+
+  <include file="$(find rbcar_localization)/launch/laserscan_from_pointcloud.launch" />
+  		
 	<arg name="prefix" default="rbcar"/>
 	<arg name="scan_topic" default="/scan"/>
 	<arg name="map_frame" default="map"/> 
