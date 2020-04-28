@@ -1,6 +1,16 @@
 <?xml version="1.0"?>
 <robot name="rbcar" xmlns:xacro="http://www.ros.org/wiki/xacro"> 
+<material name="black">
+<color rgba="0 0 0 1"/>
+</material>
+  <xacro:macro name="default_inertial" params="mass">
+    <inertial>
+      <mass value="${mass}"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+  </xacro:macro>
 
+<xacro:include filename="$(find rbcar_description)/robots/mybot.plugins.xacro" />
 
 	<!-- ***************** -->
 	<!-- Imported elements -->
@@ -16,10 +26,6 @@
     
 	<!-- Import all available sensors -->
 	<xacro:include filename="$(find robotnik_sensors)/urdf/all_sensors.urdf.xacro" />
-        
-	
-        <!-- This adds the laser macro, including the scan for gazebo and link name -->
-	<include filename="$(find pr2_description)/urdf/sensors/hokuyo_lx30_laser.urdf.xacro" />
      
 	<!-- ***************** -->
 	<!-- Global parameters -->
@@ -64,52 +70,87 @@
                     lr_reflect="-1" fr_reflect="-1"/>
 
 
-	
+	<!-- SENSORS -->    
+    <xacro:sensor_sick_s3000 prefix="front_laser" parent="base_link">
+		<origin xyz="1.58 0.0 0.0" rpy="0 0.0 0"/>
+	</xacro:sensor_sick_s3000>
+
 	<xacro:sensor_imu prefix="imu" parent="base_link">
 		<origin xyz="0.0 0.0 0.170" rpy="0 0 0"/>
 	</xacro:sensor_imu>
-
-	<!-- Velodyne URDF, plugin, etc -->
-  	<xacro:include filename="$(find velodyne_description)/urdf/VLP-16.urdf.xacro"/>
-  	<VLP-16 parent="base_link" name="velodyne" topic="/velodyne_points">
-    		<origin xyz="1.58 0 .15" rpy="0 0 0" />
-  	</VLP-16>
-
-  	
 	
+	<!--xacro:sensor_hokuyo_utm30lx name="hokuyo" parent="base_link">
+		<origin xyz="0.0 0.0 0.33" rpy="0 0 0"/>
+	</xacro:sensor_hokuyo_utm30lx -->
+  
+<!--
+	<xacro:sensor_hokuyo_urg04lx name="hokuyo1" parent="base_link">
+		<origin xyz="-0.1 0.0 0.33" rpy="0 0 0"/>
+	</xacro:sensor_hokuyo_urg04lx>
+-->
+    
+	<!-- xacro:sensor_axis name="camera" parent="base_link">
+		<origin xyz="0.19 0 0.17" rpy="0 ${15*PI/180} 0"/>
+	</xacro:sensor_axis-->
     
 	<xacro:sensor_gps prefix="gps" parent="base_link">
 		<origin xyz="-0.17 0 1.5" rpy="0 0 0"/>
 	</xacro:sensor_gps>
+	
+<!--
+	<xacro:sensor_asus_xtion_pro name="xtion_pro" parent="base_link">
+		<origin xyz="0.3 0.0 0.3" rpy="0 0 0"/> 
+	</xacro:sensor_asus_xtion_pro>  
+-->
+    
+<!--
+	<xacro:sensor_kinect name="kinect" parent="base_link">
+		<origin xyz="0.3 0.0 0.16" rpy="0 0 0"/> 
+	</xacro:sensor_kinect>  
+  
+-->
+<!--
+	<xacro:sensor_fotonic name="fotonic" parent="base_link">
+		<origin xyz="0.3 0.0 0.24" rpy="0 0 0"/> 
+	</xacro:sensor_fotonic>  
+-->
 
-	<!--Camera-->
-  	<link name="camera">
-    		<visual>
-      		<geometry>
-        		<box size="0.1 0.1 0.1"/>
-      		</geometry>
-      	<material name="black"/>
-    	</visual>
-    	<collision>
-      	<geometry>
-        	<box size="0.1 0.1 0.1"/>
-      	</geometry>
-    	</collision>
+  <!-- gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so"/>
+  </gazebo -->  
+  <!-- ros control plugin -->
+
+  <!-- VLP-16 -->
+<!-- 
+ <xacro:include filename="$(find velodyne_description)/urdf/VLP-16.urdf.xacro"/>
+  <VLP-16 parent="base_link" name="velodyne" topic="/velodyne_points" hz="10" samples="1024" gpu="false" lasers="16" max_range="100">
+    <origin xyz="0.5 0 1.70" rpy="0 0 0" />
+  </VLP-16>
+-->
+ <!--Camera-->
+  <link name="camera">
+    <visual>
+      <geometry>
+        <box size="0.1 0.1 0.1"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.1 0.1 0.1"/>
+      </geometry>
+    </collision>
    
-  	
+  <xacro:default_inertial mass="0.02"/>
  
-  	</link>
-	<joint name="camera_joint" type="fixed">
-    		<origin xyz="1.1 0 0.6" rpy="0 0 0"/>
-    		<parent link="base_link"/>
-    		<child link="camera"/>
-  	</joint>
-     
+  </link>
 
-        <xacro:hokuyo_lx30_laser_v0 name="laser_scan" parent="base" ros_topic="/base_scan/scan"
-    		update_rate="20" min_angle="-1.57" max_angle="1.57" >
-        	<origin xyz="1.58 0 .25" rpy="0 0 0" />
-    	</xacro:hokuyo_lx30_laser_v0>
+  <joint name="camera_joint" type="fixed">
+    <origin xyz="1.1 0 0.6" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="camera"/>
+  </joint>
 
+	
 </robot>
 

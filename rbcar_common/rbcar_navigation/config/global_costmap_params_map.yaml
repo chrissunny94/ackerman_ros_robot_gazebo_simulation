@@ -1,10 +1,10 @@
 global_costmap:
   global_frame: /map
   robot_base_frame: /base_footprint
-  update_frequency: 25.0
+  update_frequency: 10.0
   # robot radius +safety_delta 0.25 + 0.02
   # set to permit drawing a trajectory through the narrowest door
-  inflation_radius: 0.35  
+  inflation_radius: 50  
   plugins:
   - {name: static_layer,        type: "costmap_2d::StaticLayer" }
 

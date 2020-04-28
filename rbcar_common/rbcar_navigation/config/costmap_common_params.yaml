@@ -22,5 +22,5 @@ obstacles_layer:
 inflation_layer:
   enabled: true
   cost_scaling_factor: 0.0 # the lower, the more cost
-  inflation_radius: 3.5 # big values make it harder to pass through narrow spaces
+  inflation_radius: 20 # big values make it harder to pass through narrow spaces
 

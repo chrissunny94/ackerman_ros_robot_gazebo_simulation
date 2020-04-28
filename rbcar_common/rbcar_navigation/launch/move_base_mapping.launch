@@ -6,10 +6,10 @@
   <arg name="global_frame" default="map"/> 
   <arg name="odom_frame" default="odom"/> 
   <arg name="base_frame" default="base_footprint"/>
-  <arg name="laser_frame" default="front_laser_base_link"/>
-  <arg name="scan_topic" default="/scan"/>
+  <arg name="laser_frame" default="velodyne"/>
+  <arg name="scan_topic" default="/base_scan/scan"/>
 
-  <include file="$(find ackermann_drive_teleop)/launch/ackermann_drive_joyop.launch" />
+<!--  <include file="$(find ackermann_drive_teleop)/launch/ackermann_drive_joyop.launch" /> -->
   
   <!-- Run move_base -->
   <node pkg="move_base" type="move_base" respawn="false" name="move_base">
@@ -18,7 +18,8 @@
 		<rosparam file="$(find rbcar_navigation)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
 		<rosparam file="$(find rbcar_navigation)/config/local_costmap_params.yaml" command="load" />
 		<rosparam file="$(find rbcar_navigation)/config/global_costmap_params_map.yaml" command="load" />
-		<rosparam file="$(find rbcar_navigation)/config/teb_local_planner_params.yaml" command="load" />
+
+		
 					
 		<!-- reset frame_id parameters using user input data -->
 		<param name="global_costmap/obstacles_layer/scan/sensor_frame" value="$(arg laser_frame)"/>
@@ -29,11 +30,10 @@
 		<param name="local_costmap/robot_base_frame" value="$(arg base_frame)"/>
 		<param name="global_costmap/global_frame" value="$(arg global_frame)"/>
 		<param name="global_costmap/robot_base_frame" value="$(arg base_frame)"/>
-		<param name="TebLocalPlannerROS/map_frame" value="$(arg global_frame)"/>
-		<param name="TebLocalPlannerROS/odom_topic" value="$(arg odom_topic)"/>
-		<param name="controller_frequency" value="5.0"/>
+		
+    <param name="controller_frequency" value="5.0"/>
     <param name="controller_patience" value="15.0"/>
-    <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" /> 
+    
     <remap from="cmd_vel" to="$(arg cmd_vel_topic)" /> 
     <remap from="odom" to="$(arg odom_topic)" />        
   </node>
