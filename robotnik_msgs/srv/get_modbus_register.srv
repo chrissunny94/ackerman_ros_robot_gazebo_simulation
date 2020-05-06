@@ -1,4 +1,0 @@
-int32 address
----
-bool ret 
-uint16 value

@@ -1,2 +1,0 @@
-robotnik_msgs/named_input_output[] digital_inputs
-robotnik_msgs/named_input_output[] digital_outputs

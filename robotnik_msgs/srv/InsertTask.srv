@@ -1,6 +1,0 @@
-int32 id_submission
-string description_task
-string datatime_start
----
-bool success
-string msg

@@ -1,3 +1,0 @@
-MotorStatus lwStatus
-MotorStatus rwStatus
-

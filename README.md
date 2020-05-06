@@ -43,10 +43,36 @@ Install all the other required packages
 This will launch the sonoma_raceway by default .
 
 	roslaunch rbcar_sim_bringup rbcar_complete.launch
+
+Once Gazebo is launched succefully 
 	
-	
+	roslaunch rbcar_control rbcar_control.launch	
 
 ![](docs/gazebo.gif) 
+
+
+
+To control the robot with **/cmd_vel**
+
+
+	roslaunch ackermann_drive_teleop ackermann_drive_joyop.launch
+
+
+
+To launch gmapping and move_base
+
+
+	roslaunch rbcar_localization slam_gmapping.launch
+
+
+To launch **move_base with TEB planner**
+
+	roslaunch teb_local_planner_tutorials robot_carlike_in_stage.launch
+	
+
+To launch **RVIZ**
+
+	rviz
 
 
 

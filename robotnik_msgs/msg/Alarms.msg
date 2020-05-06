@@ -1,1 +1,0 @@
-AlarmSensor[] alarms
