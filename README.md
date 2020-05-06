@@ -5,7 +5,7 @@
 
 Hope you find this helpful!
 
-![](rbcar_common/rbcar_description/meshes/coordinates_wheels.jpg) 
+![](docs/coordinates_wheels.jpg) 
  
  
 ##### List of original repositories i have downloaded the code from
@@ -74,5 +74,5 @@ To launch **RVIZ**
 
 	rviz
 
-
+![](docs/rviz.gif) 
 
