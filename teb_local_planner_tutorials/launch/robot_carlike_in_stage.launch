@@ -9,11 +9,7 @@
  -->
 <launch>
 
-        <!--  ************** Global Parameters ***************  -->
-        <param name="/use_sim_time" value="true"/>
-
-       
-
+      
         <!--  ************** Navigation ***************  -->
 	<node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
   	  	<rosparam file="$(find teb_local_planner_tutorials)/cfg/carlike/costmap_common_params.yaml" command="load" ns="global_costmap" />

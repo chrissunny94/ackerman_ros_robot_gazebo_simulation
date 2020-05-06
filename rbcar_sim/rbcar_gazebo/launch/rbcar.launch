@@ -12,8 +12,9 @@
   <arg name="pitch" default="0.002969"/>
   <arg name="yaw" default="1.581388"/>
 
-  <!-- rbcar_control launch file -->
+  <!-- rbcar_control launch file 
   <include file="$(find rbcar_control)/launch/rbcar_control.launch" />
+  -->
   
   <!--include file="$(find rbcar_robot_control)/launch/rbcar_robot_control.launch" / -->
 
@@ -28,7 +29,7 @@
 
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find rbcar_gazebo)/worlds/roadworld.world"/>
+    <arg name="world_name" value="$(find rbcar_gazebo)/worlds/bosch.world"/>
     <arg name="debug" value="$(arg debug)" />
     <arg name="gui" value="$(arg gui)" />
     <arg name="paused" value="false"/>

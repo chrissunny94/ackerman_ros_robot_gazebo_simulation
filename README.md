@@ -4,6 +4,8 @@
  I find the lack of a ackerman robot with properly documented instructions on how to get it working , thus i am taking the time to do it .
 
 Hope you find this helpful!
+
+![](rbcar_common/rbcar_description/meshes/coordinates_wheels.jpg) 
  
  
 ##### List of original repositories i have downloaded the code from
@@ -22,6 +24,17 @@ Hope you find this helpful!
 
 - [https://github.com/gkouros/ackermann-drive-teleop](https://github.com/gkouros/ackermann-drive-teleop) 
 
+
+
+#### Pre requisites
+
+-  install gazebo 9+
+-  works well on ros kinetic
+
+
+Install all the other required packages
+
+		sudo apt install 
 
 
 ### How to run the gazebo sim

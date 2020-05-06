@@ -6,21 +6,21 @@
        inset from the outer edge of the tire. It is set so that each wheel
        is a "zero offset" wheel. hex_hub_depth = tire_width / 2 -
        axle_length. -->
-  <xacro:property name="hub_dia" value="0.235"/>
-  <xacro:property name="tire_dia" value="0.470"/>
-  <xacro:property name="tire_width" value="0.2"/>
+  <xacro:property name="hub_dia" value="0.235"/> 
+  <xacro:property name="tire_dia" value="0.440"/>
+  <xacro:property name="tire_width" value="0.195"/>
   
-  <xacro:property name="hex_hub_depth" value="0.120"/> <!-- or +0.072 -->
+  <xacro:property name="hex_hub_depth" value="0.120"/> <!-- or +0.072 -->  
   <xacro:property name="wheel_mass" value="8.0"/>   <!-- check -->
 
   <!-- hex_hub_dist is the distance between left and right hex hubs when
        the shock absorbers are fully extended. axle_length is the distance
        from a U joint to the corresponding hex hub. wheel_travel is the
        vertical wheel travel. -->
-  <xacro:property name="wheelbase" value="1.650"/>
-  <xacro:property name="hex_hub_dist" value="0.900"/>  <!-- 1.127 0.742 0.900 check -->
-  <xacro:property name="axle_length" value="0.120"/>
-  <xacro:property name="wheel_travel" value="0.1"/>
+  <xacro:property name="wheelbase" value="2.5"/>
+  <xacro:property name="hex_hub_dist" value="0.9191"/>  <!-- 1.127 0.742 0.900 check -->
+  <xacro:property name="axle_length" value="0.120"/> 
+  <xacro:property name="wheel_travel" value="0.1"/> 
   <xacro:property name="shock_z_offset" value="0.05"/>
 
   <!-- Degree-to-radian conversions -->

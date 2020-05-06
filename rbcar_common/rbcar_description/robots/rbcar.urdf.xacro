@@ -9,7 +9,7 @@
 	<!-- First we import all posible elements defined in the urdf.xacro files. All these elements are defined as macro:xacros -->
 
 	<!-- Import Robotnik CAR base elements -->
-	<xacro:include filename="$(find rbcar_description)/urdf/bases/rbcar_base_v2.urdf.xacro" />
+	<xacro:include filename="$(find rbcar_description)/urdf/bases/rbcar_base.urdf.xacro" />
   
 	<!-- Import Robotnik CAR wheels -->
 	<xacro:include filename="$(find rbcar_description)/urdf/wheels/suspension_wheel_v2.urdf.xacro" />

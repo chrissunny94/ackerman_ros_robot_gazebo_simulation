@@ -19,7 +19,7 @@ class AckermannDriveJoyop:
             self.max_steering_angle = float(args[1])
             cmd_topic = '/' + args[2]
         else:
-            self.max_speed = 2
+            self.max_speed = 5
             self.max_steering_angle = 0.7
             cmd_topic = '/rbcar_robot_control/command'
 
@@ -28,8 +28,8 @@ class AckermannDriveJoyop:
         self.joy_sub = rospy.Subscriber('/joy', Joy, self.joy_callback)
         self.cmd_vel_sub = rospy.Subscriber('/cmd_vel', Twist, self.cmd_vel_callback)
         self.drive_pub = rospy.Publisher(cmd_topic, AckermannDriveStamped,
-                                         queue_size=1)
-        rospy.Timer(rospy.Duration(1.0/5.0), self.pub_callback, oneshot=False)
+                                         queue_size=100)
+        rospy.Timer(rospy.Duration(1.0/25.0), self.pub_callback, oneshot=False)
         rospy.loginfo('ackermann_drive_joyop_node initialized')
 
     def joy_callback(self, joy_msg):

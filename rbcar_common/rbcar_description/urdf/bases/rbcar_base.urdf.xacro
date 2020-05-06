@@ -48,22 +48,22 @@
        <origin xyz="0 0 0" rpy="0 0 0" />
        <xacro:if value="${hq}">
        <geometry>
-	     <mesh filename="package://rbcar_description/meshes/bases/rbcar_chassis.dae"/>
+	     <mesh filename="package://rbcar_description/meshes/bases/rbcar_chassis_v2.STL"/>
        </geometry>
        </xacro:if>
        <xacro:unless value="${hq}">
        <geometry>
-	     <mesh filename="package://rbcar_description/meshes/bases/rbcar_chassis.dae"/>
+	     <mesh filename="package://rbcar_description/meshes/bases/rbcar_chassis_v2.STL"/>
        </geometry>
        </xacro:unless>
-       <material name="darkgrey">
+       <material name="white">
          <color rgba="0.1 0.1 0.1 1"/>
        </material>
     </visual>  
     <collision>
        <origin xyz="0 0 0" rpy="0 0 0 " />
        <geometry>
-         <mesh filename="package://rbcar_description/meshes/bases/rbcar_chassis.dae"/>
+         <mesh filename="package://rbcar_description/meshes/bases/rbcar_chassis_v2.STL"/>
        </geometry>
     </collision>     
   </link>
