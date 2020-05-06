@@ -40,8 +40,13 @@ Install all the other required packages
 ### How to run the gazebo sim
 -----------------------------------------------------
 
-	roslaunch rbcar_sim_bringup rbcar_complete.launch
+This will launch the sonoma_raceway by default .
 
+	roslaunch rbcar_sim_bringup rbcar_complete.launch
+	
+	
+
+![](docs/gazebo.gif) 
 
 
 

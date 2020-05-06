@@ -12,7 +12,7 @@
 	<xacro:include filename="$(find rbcar_description)/urdf/bases/rbcar_base.urdf.xacro" />
   
 	<!-- Import Robotnik CAR wheels -->
-	<xacro:include filename="$(find rbcar_description)/urdf/wheels/suspension_wheel_v2.urdf.xacro" />
+	<xacro:include filename="$(find rbcar_description)/urdf/wheels/suspension_wheel.urdf.xacro" />
     
 	<!-- Import all available sensors -->
 	<xacro:include filename="$(find robotnik_sensors)/urdf/all_sensors.urdf.xacro" />
