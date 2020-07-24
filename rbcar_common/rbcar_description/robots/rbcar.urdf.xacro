@@ -111,5 +111,10 @@
         	<origin xyz="1.58 0 .25" rpy="0 0 0" />
     	</xacro:hokuyo_lx30_laser_v0>
 
+         <xacro:hokuyo_lx30_laser_v0 name="back_scan" parent="base" ros_topic="/rear/scan"
+    		update_rate="20" min_angle="-1.57" max_angle="1.57" >
+        	<origin xyz="-2.0 0 .25" rpy="0 0 3.14159" />
+    	</xacro:hokuyo_lx30_laser_v0>
+
 </robot>
 

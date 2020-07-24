@@ -1,0 +1,53 @@
+<!-- Demonstation of obstacle detector -->
+<launch>
+
+ 
+ 
+  <node name="nodelet_manager" pkg="nodelet" type="nodelet" args="manager" output="screen">
+    <param name="num_worker_threads" value="20"/>
+  </node>
+
+
+  <node name="obstacle_extractor" pkg="nodelet" type="nodelet" args="load obstacle_detector/ObstacleExtractor nodelet_manager">
+    <param name="active"               value="true"/>
+    <param name="use_scan"             value="true"/>
+    <param name="use_pcl"              value="false"/>
+    <remap from="/scan"   to="/base_scan/scan"/>	
+
+    <param name="use_split_and_merge"    value="true"/>
+    <param name="circles_from_visibles"  value="true"/>
+    <param name="discard_converted_segments" value="true"/>
+    <param name="transform_coordinates"  value="true"/>
+
+    <param name="min_group_points"     value="10"/>
+
+    <param name="max_group_distance"   value="10"/>
+    <param name="distance_proportion"  value="0.00628"/>
+    <param name="max_split_distance"   value="0.2"/>
+    <param name="max_merge_separation" value="1"/>
+    <param name="max_merge_spread"     value="10"/>
+    <param name="max_circle_radius"    value="10"/>
+    <param name="radius_enlargement"   value="10"/>
+
+    <param name="frame_id"             value="map"/>
+  </node>
+
+  <node name="obstacle_tracker" pkg="nodelet" type="nodelet" args="load obstacle_detector/ObstacleTracker nodelet_manager">
+    <param name="active"                  value="true"/>
+
+    <param name="loop_rate"               value="100.0"/>
+    <param name="tracking_duration"       value="2.0"/>
+    <param name="min_correspondence_cost" value="0.6"/>
+    <param name="std_correspondence_dev"  value="0.15"/>
+    <param name="process_variance"        value="0.1"/>  
+    <param name="process_rate_variance"   value="0.1"/>  
+    <param name="measurement_variance"    value="1.0"/>  
+
+    <param name="frame_id"                value="map"/>
+
+    <remap from="tracked_obstacles" to="tracked_obstacles"/>
+  </node>
+
+
+</launch>
+
