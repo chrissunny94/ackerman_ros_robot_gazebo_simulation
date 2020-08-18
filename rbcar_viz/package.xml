@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package>
-  <name>ace_viz</name>
+  <name>rbcar_viz</name>
   <version>0.3.1</version>
   <description>Visualization configuration for Clearpath Husky</description>
 
@@ -20,7 +20,7 @@
 
   <build_depend>roslaunch</build_depend>
 
-  <run_depend>ace_description</run_depend>
+  <run_depend>rbcar_description</run_depend>
   <run_depend>joint_state_publisher</run_depend>
   <run_depend>robot_state_publisher</run_depend>
   <run_depend>rviz</run_depend>

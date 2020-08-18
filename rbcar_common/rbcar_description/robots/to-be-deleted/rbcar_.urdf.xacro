@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<robot name="rbcar" xmlns:xacro="http://www.ros.org/wiki/xacro"> 
+
+
+	<!-- ***************** -->
+	<!-- Imported elements -->
+	<!-- ***************** -->
+	
+	<!-- First we import all posible elements defined in the urdf.xacro files. All these elements are defined as macro:xacros -->
+
+	<!-- Import Robotnik CAR base elements -->
+	<xacro:include filename="$(find rbcar_description)/urdf/bases/rbcar_base.urdf.xacro" />
+  
+	<!-- Import Robotnik CAR wheels -->
+	<xacro:include filename="$(find rbcar_description)/urdf/wheels/suspension_wheel.urdf.xacro" />
+    
+	<!-- Import all available sensors -->
+	<xacro:include filename="$(find robotnik_sensors)/urdf/all_sensors.urdf.xacro" />
+     
+	<!-- ***************** -->
+	<!-- Global parameters -->
+	<!-- ***************** -->
+  
+	<xacro:property name="PI" value="3.1415926535897931"/>
+  
+	<!-- Wheel parameters -->
+	<xacro:property name="wheel_offset_x" value="1.25" />    <!-- x,y,z in translation from base_link to the center of the wheel -->
+	<xacro:property name="wheel_offset_y" value="0.525" />    
+	<xacro:property name="wheel_offset_z" value="0.0" />
+
+	<!-- Flag to select the high or low quality model -->
+	<xacro:property name="hq" value="true" />
+
+
+	<!-- *************** -->
+	<!-- Robots Elements -->
+	<!-- *************** -->
+
+	<!-- Here we create the robot elements using the xacro:macros imported at the beggining of this file -->
+
+	<!-- Summit XL base -->
+	<xacro:rbcar_base name="rbcar" publish_bf="true" hq="${hq}" />
+  
+	<!-- Gazebo ros control pluggins -->
+	<xacro:ros_control/>
+	
+	<!-- Gazebo skid steering pluggins -->
+	<!-- xacro:skid_steering broadcastOdomTF="1"/ -->
+    
+	<!-- WHEELS -->
+
+  <!-- Wheels -->
+  <xacro:front_wheel lr_prefix="left" fr_prefix="front"
+                     lr_reflect="1" fr_reflect="1"/>
+  <xacro:front_wheel lr_prefix="right" fr_prefix="front"
+                     lr_reflect="-1" fr_reflect="1"/>
+  <xacro:rear_wheel lr_prefix="left" fr_prefix="rear"
+                    lr_reflect="1" fr_reflect="-1"/>
+  <xacro:rear_wheel lr_prefix="right" fr_prefix="rear"
+                    lr_reflect="-1" fr_reflect="-1"/>
+
+
+	<!-- SENSORS -->    
+    <xacro:sensor_sick_s3000 prefix="front_laser" parent="base_link">
+		<origin xyz="1.58 0.0 0.0" rpy="0 0.0 0"/>
+	</xacro:sensor_sick_s3000>
+
+	<xacro:sensor_imu prefix="imu" parent="base_link">
+		<origin xyz="0.0 0.0 0.170" rpy="0 0 0"/>
+	</xacro:sensor_imu>
+	
+	
+	<xacro:sensor_gps prefix="gps" parent="base_link">
+		<origin xyz="-0.17 0 1.5" rpy="0 0 0"/>
+	</xacro:sensor_gps>
+	
+	<!--Camera-->
+  	<link name="camera">
+    		<visual>
+      		<geometry>
+        		<box size="0.1 0.1 0.1"/>
+      		</geometry>
+      	<material name="black"/>
+    	</visual>
+    	<collision>
+      	<geometry>
+        	<box size="0.1 0.1 0.1"/>
+      	</geometry>
+    	</collision>
+   
+  	<xacro:default_inertial mass="0.02"/>
+ 
+  	</link>
+		<joint name="camera_joint" type="fixed">
+    		<origin xyz="1.1 0 0.6" rpy="0 0 0"/>
+    		<parent link="base_link"/>
+    		<child link="camera"/>
+  	</joint>
+
+
+</robot>
+

@@ -1,0 +1,19 @@
+scan_filter_chain:
+- name: laser_cutoff
+  type: laser_filters/LaserScanAngularBoundsFilter
+  params:
+    lower_angle: -1.5533
+    upper_angle: 1.5533
+#- name: shadows
+#  type: ScanShadowsFilter
+#  params:
+#    min_angle: 10
+#    max_angle: 170
+#    neighbors: 20
+#    window: 1
+#- name: dark_shadows
+#  type: LaserScanIntensityFilter
+#  params: 
+#    lower_threshold: 100
+#    upper_threshold: 10000
+#    disp_histogram: 0

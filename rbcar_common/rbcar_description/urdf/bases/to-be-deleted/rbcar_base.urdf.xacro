@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<robot name="rbcar" xmlns:xacro="http://www.ros.org/wiki/xacro"> 
+
+ 
+  <xacro:include filename="$(find rbcar_description)/urdf/bases/rbcar_base.gazebo.xacro" />
+
+  <xacro:macro name="rbcar_base" params="name publish_bf hq">
+
+  <!-- Robot mechanical and motor parameters -->
+  <xacro:property name="PI" value="3.1415926535897931"/>
+  <xacro:property name="wheel_width" value="0.175" />
+  <xacro:property name="clearance" value="${tire_dia/2.0}" />
+  
+  <!-- BASE FOOTPRINT -->
+  <xacro:if value="${publish_bf}">
+    <link name="base_footprint">
+      <visual>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
+             <box size="0.001 0.001 0.001" />
+          </geometry>
+      </visual>
+<!--
+      <collision>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
+            <box size="0.001 0.001 0.001" />
+          </geometry>
+      </collision>
+-->
+    </link>
+
+    <joint name="base_footprint_joint" type="fixed">
+      <origin xyz="0 0 ${clearance}" rpy="0 0 0" />  <!-- height is the clearance -->
+      <parent link="base_footprint"/>
+      <child link="base_link" />
+    </joint>    
+  </xacro:if>
+
+  <!-- BASE_LINK -->
+  <link name="base_link">
+    <inertial>
+      <mass value="125.0" />
+      <origin xyz="0 0 0" />
+      <inertia  ixx="1.391" ixy="0.004"  ixz="0.0"  iyy="6.853"  iyz="0.0"  izz="6.125" />
+    </inertial>
+    <visual>
+       <origin xyz="0 0 0" rpy="0 0 0" />
+       <xacro:if value="${hq}">
+       <geometry>
+	     <mesh filename="package://rbcar_description/meshes/bases/rbcar_chassis.dae"/>
+       </geometry>
+       </xacro:if>
+       <xacro:unless value="${hq}">
+       <geometry>
+	     <mesh filename="package://rbcar_description/meshes/bases/rbcar_chassis.dae"/>
+       </geometry>
+       </xacro:unless>
+       <material name="darkgrey">
+         <color rgba="0.1 0.1 0.1 1"/>
+       </material>
+    </visual>  
+    <collision>
+       <origin xyz="0 0 0" rpy="0 0 0 " />
+       <geometry>
+         <mesh filename="package://rbcar_description/meshes/bases/rbcar_chassis.dae"/>
+       </geometry>
+    </collision>     
+  </link>
+
+
+  </xacro:macro>
+</robot>
