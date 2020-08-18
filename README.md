@@ -72,7 +72,7 @@ To launch **move_base with TEB planner**
 
 To launch **RVIZ**
 
-	rviz
+	roslaunch rbcar_viz view_robot.launch
 
 ![](docs/rviz.gif) 
 
