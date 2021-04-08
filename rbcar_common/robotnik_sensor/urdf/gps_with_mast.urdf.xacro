@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<robot name="sensor_gps_with_mast" xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <xacro:property name="mast_height" value="0.5" />
+  <xacro:property name="mast_radius" value="0.010" />
+
+  <!-- if no latitude/longitud is specified, then use Fuente del Jarro as default -->
+  <xacro:macro name="sensor_gps_with_mast" params="prefix parent *origin gps_latitude:=^|39.5080331 gps_longitude:=^|-0.4619816">
+
+	  <!-- MAST OF THE ANTENNA GPS -->
+	  <joint name="${prefix}_joint" type="fixed">
+	    <axis xyz="0 1 0"/>
+	    <xacro:insert_block name="origin"/>
+	    <parent link="${parent}"/>
+	    <child link="${prefix}_mast_base_link"/>
+	  </joint>
+
+	  <link name="${prefix}_mast_base_link">
+	    <inertial>
+	      <mass value="0.001"/>
+	      <origin rpy="0 0 0" xyz="0 0 0"/>
+	      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.0001"/>
+	    </inertial>
+	    <visual>
+	      <origin rpy="0 0 0" xyz="0 0 0"/>
+	      <material name="mast_color">
+            <color rgba="0.1 0.1 0.1 1"/>
+          </material>
+	      <geometry>
+	        <cylinder length="${mast_height}" radius="${mast_radius}" />
+	      </geometry>
+	    </visual>
+	    <collision>
+	      <origin rpy="0 0 0" xyz="0 0 0"/>
+	      <geometry>
+	        <cylinder length="${mast_height}" radius="${mast_radius}" />
+	      </geometry>
+	    </collision>
+	  </link>
+
+	  <joint name="${prefix}_mast_joint" type="fixed">
+	    <axis xyz="0 1 0"/>
+	    <parent link="${prefix}_mast_base_link"/>
+	    <child link="${prefix}_link"/>
+	    <origin xyz="0 0 ${mast_height/2.0}" rpy="0 0 0" />
+	  </joint>
+
+	  <gazebo reference="${prefix}_mast_base_link">
+	    <material>Gazebo/Black</material>
+	    <gravity>true</gravity>
+	  </gazebo>
+
+      <!-- ANTENNA GPS -->
+	  <link name="${prefix}_link">
+	    <inertial>
+	      <mass value="0.001"/>
+	      <origin rpy="0 0 0" xyz="0 0 0"/>
+	      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.0001"/>
+	    </inertial>
+	    <visual>
+	      <origin rpy="0 0 0" xyz="0 0 0"/>
+	      <material name="gps_color">
+           <color rgba="1 1 1 1"/>
+        </material>
+	      <geometry>
+	        <mesh filename="package://robotnik_sensors/meshes/antenna_3GO16.stl" scale="1.0 1.0 1.0"/>
+	      </geometry>
+	    </visual>
+	    <collision>
+	      <origin rpy="0 0 0" xyz="0 0 0"/>
+	      <geometry>
+	        <mesh filename="package://robotnik_sensors/meshes/antenna_3GO16.stl" scale="1.0 1.0 1.0"/>
+	      </geometry>
+	    </collision>
+	  </link>
+
+
+	  <gazebo reference="${prefix}_link">
+	    <material>Gazebo/White</material>
+	    <gravity>true</gravity>
+	  </gazebo>
+
+    <gazebo>
+      <plugin name="${prefix}_controller" filename="libhector_gazebo_ros_gps.so">
+        <alwaysOn>1</alwaysOn>
+        <updateRate>5</updateRate>
+        <bodyName>${prefix}_link</bodyName> <!-- must be the link of the gps device, not the base_link or base_footprint -->
+        <frameId>${prefix}_link</frameId>   <!-- which frame_id would be on the published message -->
+        <topicName>fix</topicName>
+        <!-- GPS coordinates -->
+        <referenceLatitude>${gps_latitude}</referenceLatitude>
+        <referenceLongitude>${gps_longitude}</referenceLongitude>
+        <!-- To set heading in ENU orientation (degrees) -->
+        <referenceHeading>90</referenceHeading>
+        <velocityTopicName>fix_velocity</velocityTopicName>
+        <drift>0.0 0.0 0.0</drift>
+        <!--<drift>0.0001 0.0001 0.0001</drift>-->
+        <!--<drift>0.3 0.3 0.3</drift>-->
+        <gaussianNoise>0.1 0.1 0.1</gaussianNoise>
+        <!--<gaussianNoise>0.00001 0.00001 0.00001</gaussianNoise>-->
+        <velocityDrift>0.00001 0.00001 0.00001</velocityDrift>
+        <!--<velocityGaussianNoise>0.1 0.1 0.1</velocityGaussianNoise>-->
+        <velocityGaussianNoise>0.00001 0.00001 0.00001</velocityGaussianNoise>
+        <ignoreTfPrefix>1</ignoreTfPrefix>
+      </plugin>
+	</gazebo>
+
+  </xacro:macro>
+
+</robot>

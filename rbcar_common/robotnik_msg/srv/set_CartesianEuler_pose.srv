@@ -1,0 +1,14 @@
+# New robot X position (mm)
+float32 x
+# New robot Y position (mm)
+float32 y
+# New robot Z position (mm)
+float32 z
+# New robot Orientation (grad)
+float32 A
+# New robot Orientation (grad)
+float32 B
+# New robot Orientation (grad)
+float32 C
+---
+bool ret 

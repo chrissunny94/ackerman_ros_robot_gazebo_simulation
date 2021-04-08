@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<robot name="sensor_teraranger_duo" xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <xacro:macro name="sensor_teraranger_duo" params="prefix parent prefix_topic:='teraranger_duo' *origin">
+
+    <joint name="${prefix}_base_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="${prefix}_base_link"/>
+	</joint>
+
+	<link name="${prefix}_base_link">
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+	     		<mesh filename="package://robotnik_sensors/meshes/teraranger_tr_duo.dae"/>
+			</geometry>
+		</collision>
+
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+	     		<mesh filename="package://robotnik_sensors/meshes/teraranger_tr_duo.dae"/>
+			</geometry>
+		</visual>
+
+		<inertial>
+			<mass value="1e-5" />
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+		</inertial>
+	</link>
+
+    <joint name="${prefix}_sonar_joint" type="fixed">
+      <parent link="${prefix}_base_link"/>
+      <child link="${prefix}_sonar_link"/>
+      <origin xyz="0.02 0 0.012" rpy="0 0 0"/>
+	</joint>
+
+	<joint name="${prefix}_laser_joint" type="fixed">
+      <parent link="${prefix}_base_link"/>
+      <child link="${prefix}_laser_link"/>
+      <origin xyz="0.02 0 -0.015" rpy="0 0 0"/>
+	</joint>
+
+	<link name="${prefix}_sonar_link">
+	</link>
+	<link name="${prefix}_laser_link">
+    </link>
+	<!-- TODO add Gazebo stuff for simulation-->
+  </xacro:macro>
+</robot>

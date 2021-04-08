@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<robot name="sensor_benewake_ce30" xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <xacro:property name="M_PI" value="3.1415926535897931" />
+
+
+  <xacro:macro name="sensor_rslidar_mems" params="prefix parent *origin">
+
+    <material name="black_alu">
+      <color rgba="0.9 0.9 0.9 1"/>
+    </material>
+
+    <joint name="${prefix}_base_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+		  <parent link="${parent}"/>
+		  <child link="${prefix}_base_link" />
+		</joint>
+
+		<link name="${prefix}_base_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://robotnik_sensors/meshes/rslidar_mems.stl" />
+          <!--box size="${sensor_length} ${sensor_width} ${sensor_height}"/-->
+        </geometry>
+        <material name="black_alu"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://robotnik_sensors/meshes/rslidar_mems.stl" />
+        </geometry>
+      </collision>
+		</link>
+
+    <joint name="${prefix}_joint" type="fixed">
+      <origin xyz="0 0 0.03" rpy="0 0 0"/>
+      <parent link="${prefix}_base_link"/>
+      <child link="${prefix}_link" />
+    </joint>
+    <link name="${prefix}_link"/>
+
+    <!-- sensor for simulation -->
+    <sensor_rslidar_mems_gazebo range_min="1" range_max="180" gpu="false" />
+
+  </xacro:macro>
+
+  <xacro:macro name="sensor_rslidar_mems_gazebo" params="range_min range_max gpu">
+    <gazebo reference="${prefix}_link">
+
+      <xacro:if value="${gpu}">
+        <!-- Using GPU needs: https://github.com/RobotnikAutomation/velodyne_simulator -->
+        <xacro:property name="ray_type" value="gpu_ray" />
+        <xacro:property name="plugin_lib" value="libgazebo_ros_velodyne_gpu_laser.so" />
+      </xacro:if>
+      <xacro:unless value="${gpu}">
+        <xacro:property name="ray_type" value="ray" />
+        <xacro:property name="plugin_lib" value="libgazebo_ros_velodyne_laser.so" />
+      </xacro:unless>
+
+      <sensor type="${ray_type}" name="${prefix}_sensor">
+          <pose>0 0 0 0 0 0</pose>
+          <visualize>false</visualize>
+          <update_rate>15</update_rate>
+          <ray>
+              <scan>
+                  <horizontal>
+                      <samples>100</samples>
+                      <resolution>1.0</resolution>
+                      <min_angle>-1.0472</min_angle>
+                      <max_angle>1.0472</max_angle>
+                  </horizontal>
+                  <vertical>
+                      <samples>100</samples>
+                      <resolution>1.0</resolution>
+                      <min_angle>-0.610865238</min_angle>
+                      <max_angle>1.83591184</max_angle>
+                  </vertical>
+              </scan>
+              <range>
+              <min>${range_min}</min>
+              <max>${range_max}</max>
+                  <resolution>0.0035</resolution>
+              </range>
+              <noise>
+                  <type>gaussian</type>
+                  <mean>0.0</mean>
+                  <stddev>0.01</stddev>
+              </noise>
+          </ray>
+          <plugin name="${prefix}_controller" filename="${plugin_lib}">
+              <topicName>/robot/front_3d_laser/point_cloud</topicName>
+              <frameName>/${prefix}_link</frameName>
+              <ignoreTfPrefix>1</ignoreTfPrefix>
+
+          </plugin>
+      </sensor>
+    </gazebo>
+  </xacro:macro>
+
+</robot>

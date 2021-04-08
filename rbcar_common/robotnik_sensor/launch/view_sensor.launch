@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="robot_id" default="$(optenv ROBOT_ID sensor)"/>
+  <arg name="prefix" default="$(arg robot_id)_"/>
+  <arg name="sensor" default=""/>
+  <param name="robot_description" command="$(find xacro)/xacro '$(find robotnik_sensors)/launch/view_sensor.urdf.xacro' sensor:=sensor_$(arg sensor) --inorder" />
+
+  <!-- publish tfs through the robot_state_publisher -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" >
+    <remap from="/joint_states" to="joint_states" />
+  </node>
+  
+  <!-- Show in Rviz   -->
+  <node name="rviz" pkg="rviz" type="rviz"/>
+
+</launch>
+

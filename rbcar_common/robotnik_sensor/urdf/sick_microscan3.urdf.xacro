@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<robot name="sensor_sick_microscan3"
+	xmlns:xacro="http://wiki.ros.org/xacro">
+
+	<xacro:macro name="sensor_sick_microscan3" params="prefix parent prefix_topic:='front_laser' *origin max_angle:=2.3562 min_angle:=-2.3562">
+
+		<joint name="${prefix}_base_joint" type="fixed">
+			<xacro:insert_block name="origin" />
+			<parent link="${parent}"/>
+			<child link="${prefix}_base_link"/>
+		</joint>
+
+		<link name="${prefix}_base_link">
+			<collision>
+				<origin xyz="0 0 0" rpy="0 0 0"/>
+				<geometry>
+					<!--<box size="0.106 0.094 0.152"/>-->
+					<!--<cylinder radius="0.058" length="0.152"/>-->
+					<mesh filename="package://robotnik_sensors/meshes/sick_microscan3.dae"/>
+				</geometry>
+			</collision>
+
+			<visual>
+				<origin xyz="0 0 0" rpy="0 0 0"/>
+				<geometry>
+					<mesh filename="package://robotnik_sensors/meshes/sick_microscan3.dae"/>
+				</geometry>
+			</visual>
+
+			<inertial>
+				<mass value="1e-5" />
+				<origin xyz="0 0 0" rpy="0 0 0"/>
+				<inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+			</inertial>
+		</link>
+
+		<joint name="${prefix}_joint" type="fixed">
+			<parent link="${prefix}_base_link"/>
+			<child link="${prefix}_link"/>
+			<origin xyz="0.0 0 0.110" rpy="0 0 0"/>
+		</joint>
+
+		<link name="${prefix}_link" />
+
+		<!-- Sick sensor sensor for simulation -->
+		<sensor_sick_microscan3_gazebo />
+
+	</xacro:macro>
+
+	<xacro:macro name="sensor_sick_microscan3_gazebo">
+		<gazebo reference="${prefix}_link">
+			<sensor type="gpu_ray" name="${prefix}_sensor">
+				<pose>0 0 0 0 0 0</pose>
+				<visualize>false</visualize>
+				<update_rate>12.5</update_rate>
+				<ray>
+					<scan>
+						<horizontal>
+							<samples>541</samples>
+							<resolution>1</resolution>
+							<min_angle>${min_angle}</min_angle>
+							<max_angle>${max_angle}</max_angle>
+						</horizontal>
+					</scan>
+					<range>
+						<min>0.10</min>
+						<max>30.0</max>
+						<resolution>0.03</resolution>
+					</range>
+					<noise>
+						<type>gaussian</type>
+						<mean>0.0</mean>
+						<stddev>0.03</stddev>
+					</noise>
+				</ray>
+				<plugin name="${prefix}_controller" filename="libgazebo_ros_gpu_laser.so">
+					<topicName>${prefix_topic}/scan</topicName>
+					<frameName>/${prefix}_link</frameName>					<!-- if not global (leading /) sets the current namespace as a prefix (/ns/name_laser_link) -->
+				</plugin>
+			</sensor>
+		</gazebo>
+	</xacro:macro>
+
+</robot>

@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<robot name="view_sensor"
+  xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <!-- ***************** -->
+  <!-- Imported elements -->
+  <!-- ***************** -->
+
+  <!-- Import sensors -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/all_sensors.urdf.xacro" />
+  
+  <!-- Arguments -->
+  <xacro:arg name="robot_id" default="robot"/>
+  <xacro:arg name="prefix" default="$(arg robot_id)"/>
+  <xacro:property name="robot_id" value="$(arg robot_id)" />
+  <xacro:property name="prefix" value="$(arg prefix)" />
+  <xacro:property name="sensor" value="$(arg sensor)" />
+  
+
+  <link name="world" /> 
+
+  <xacro:element xacro:name="${sensor}" prefix="${prefix}" parent="world" >
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+  </xacro:element>
+
+</robot>

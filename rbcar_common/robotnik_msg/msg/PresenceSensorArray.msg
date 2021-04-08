@@ -1,0 +1,1 @@
+robotnik_msgs/PresenceSensor[] sensors

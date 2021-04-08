@@ -1,0 +1,166 @@
+<?xml version="1.0"?>
+<robot name="flir_ptu_5" xmlns:xacro="http://wiki.ros.org/xacro">
+
+    <xacro:property name="M_PI" value="3.1415926535897931" />
+  
+    <xacro:macro name="flir_ptu_5" params="prefix parent *origin ">
+        
+        <joint name="${prefix}_base_joint" type="fixed">
+            <insert_block name="origin"/>
+            <parent link="${parent}"/>
+            <child link="${prefix}_base_link"/>
+        </joint>
+
+        <!-- BASE LINK -->
+        <link name="${prefix}_base_link">
+            <inertial>
+                <mass value="0.05" />
+                <origin xyz="0 0 0" />
+                <inertia  ixx="0.001043333" ixy="0.0"  ixz="0.0"  iyy="0.001052083"  iyz="0.0"  izz="0.000177083" />
+            </inertial>
+
+            <visual>
+                <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+                <geometry>
+                    <mesh filename="package://robotnik_sensors/meshes/flir_ptu_5_base.stl" scale="1 1 1"/>
+                </geometry>
+                <material name="grey">
+                <color rgba="0.5 0.5 0.5 1"/>
+                </material>
+            </visual>
+
+            <collision>
+                <origin xyz="0.0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <!--box size="0.146 0.05 0.0735"/-->
+                    <mesh filename="package://robotnik_sensors/meshes/flir_ptu_5_base.stl" scale="1 1 1"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <gazebo reference="${prefix}_base_link">
+            <material>Gazebo/Grey</material>
+            <turnGravityOff>false</turnGravityOff>
+        </gazebo>
+
+        <!-- BODY -->
+        <joint name="${prefix}_pan_joint" type="revolute">
+            <limit lower="-2.93197861" upper="2.93215" effort="10.0" velocity="1.4"/>
+            <axis xyz="0 0 -1"/>
+            <origin xyz="0 0 0.0251" rpy="0.0 0.0 0.0" /> 
+            <parent link="${prefix}_base_link"/>
+            <child link="${prefix}_body_link" />
+        </joint>
+
+        <transmission name="${prefix}_pan_trans">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${prefix}_pan_joint">
+                <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${prefix}_pan_motor">
+                <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+                <mechanicalReduction>1.0</mechanicalReduction>
+            </actuator>
+        </transmission>
+
+        <link name="${prefix}_body_link">
+            <inertial>
+                <mass value="0.25" />
+                <origin xyz="0 0 0" />
+                <inertia  ixx="0.000677083" ixy="0.0"  ixz="0.0"  iyy="0.000570833"  iyz="0.0"  izz="0.000310417" />
+            </inertial>
+
+            <visual>
+                <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+                <geometry>
+                    <mesh filename="package://robotnik_sensors/meshes/flir_ptu_5_body.stl" scale="1 1 1"/>
+                </geometry>
+                <material name="grey">
+                <color rgba="0.5 0.5 0.5 1"/>
+                </material>
+            </visual>
+
+            <collision>
+                <origin xyz="0.0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://robotnik_sensors/meshes/flir_ptu_5_body.stl" scale="1 1 1"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <gazebo reference="${prefix}_body_link">
+            <material>Gazebo/Grey</material>
+            <turnGravityOff>false</turnGravityOff>
+        </gazebo>
+
+        <!-- STAND -->
+        <joint name="${prefix}_tilt_joint" type="revolute">
+            <limit lower="-1.5706218" upper="0.523599" effort="10.0" velocity="1.2"/>
+            <axis xyz="0 -1 0"/>
+            <origin xyz="0.00725 0 0.0725" rpy="0.0 0.0 0.0" /> 
+            <parent link="${prefix}_body_link"/>
+            <child link="${prefix}_stand_link" />
+        </joint>
+
+        <transmission name="${prefix}_tilt_trans">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${prefix}_tilt_joint">
+                <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${prefix}_tilt_motor">
+                <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+                <mechanicalReduction>1.0</mechanicalReduction>
+            </actuator>
+        </transmission>
+
+        <link name="${prefix}_stand_link">
+            <inertial>
+                <mass value="0.05" />
+                <origin xyz="0 0 0" />
+                <inertia  ixx="0.001043333" ixy="0.0"  ixz="0.0"  iyy="0.001052083"  iyz="0.0"  izz="0.000177083" />
+            </inertial>
+
+            <visual>
+                <origin xyz="0.0 -0.0555 0.0" rpy="0 0 ${M_PI}" />
+                <geometry>
+                    <mesh filename="package://robotnik_sensors/meshes/flir_ptu_5_stand.stl" scale="1 1 1"/>
+                </geometry>
+                <material name="grey">
+                <color rgba="0.5 0.5 0.5 1"/>
+                </material>
+            </visual>
+
+            <collision>
+                <origin xyz="0.0 -0.0555 0" rpy="0 0 ${M_PI}" />
+                <geometry>
+                    <mesh filename="package://robotnik_sensors/meshes/flir_ptu_5_stand.stl" scale="1 1 1"/>
+                </geometry>
+            </collision>
+
+            <visual>
+                <origin xyz="0.0 0.0555 0.0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://robotnik_sensors/meshes/flir_ptu_5_stand.stl" scale="1 1 1"/>
+                </geometry>
+                <material name="grey">
+                <color rgba="0.5 0.5 0.5 1"/>
+                </material>
+            </visual>
+
+            <collision>
+                <origin xyz="0.0 0.0555 0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://robotnik_sensors/meshes/flir_ptu_5_stand.stl" scale="1 1 1"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <gazebo reference="${prefix}_stand_link">
+            <material>Gazebo/Grey</material>
+            <turnGravityOff>false</turnGravityOff>
+        </gazebo>
+
+        
+    </xacro:macro>
+
+</robot>

@@ -1,0 +1,7 @@
+# Avalilable status
+# 0-> POWER_ENABLED
+# 1-> QUICK_STOP
+# 2-> POWER_DISABLED (READY_TO_SWITCH_ON)
+int8 status
+---
+bool ret 

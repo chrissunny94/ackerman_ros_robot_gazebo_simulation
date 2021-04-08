@@ -1,0 +1,13 @@
+#new substate
+int32 subState
+
+---
+
+# substate of the component when change
+int32 currentSubState
+
+# The change is correct
+bool success
+
+# Text message - additional status information
+string msg

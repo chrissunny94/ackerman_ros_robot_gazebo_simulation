@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<robot name="sensor_ouster1" xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <xacro:property name="M_PI" value="3.1415926535897931" />
+
+  <xacro:macro name="sensor_ouster1" params="prefix parent prefix_topic *origin range_min range_max hfov hsamples vfov vsamples fps gpu:=^|true">
+
+    <material name="black_alu">
+      <color rgba="0.9 0.9 0.9 1"/>
+    </material>
+
+    <joint name="${prefix}_base_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="${prefix}_base_link" />
+    </joint>
+
+    <link name="${prefix}_base_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://robotnik_sensors/meshes/ouster1.STL"/>
+        </geometry>
+        <material name="black_alu"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://robotnik_sensors/meshes/ouster1.STL"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="0.380" />
+        <origin xyz="0 0 0" />
+        <!-- The following are not reliable values, and should not be used for modeling -->
+        <inertia ixx="0.003881243" ixy="0.0" ixz="0.0" iyy="0.000498940" iyz="0.0" izz="0.003879257" />
+      </inertial>
+    </link>
+
+    <joint name="${prefix}_joint" type="fixed">
+      <parent link="${prefix}_base_link"/>
+      <child link="${prefix}_link" />
+      <origin xyz="0.0 0 0.0365" rpy="0 0 0"/>
+    </joint>
+
+    <link name="${prefix}_link"/>
+
+    <sensor_ouster1_gazebo range_min="${range_min}" range_max="${range_max}" hfov="${hfov}" hsamples="${hsamples}" vfov="${vfov}" vsamples="${vsamples}" fps="${fps}" gpu="${gpu}"/>
+
+  </xacro:macro>
+
+  <xacro:macro name="sensor_ouster1_gazebo" params="range_min range_max hfov hsamples vfov vsamples fps gpu">
+    <gazebo reference="${prefix}_link">
+      <xacro:if value="${gpu}">
+        <!-- Using GPU needs: https://github.com/RobotnikAutomation/velodyne_simulator -->
+        <xacro:property name="ray_type" value="gpu_ray" />
+        <xacro:property name="plugin_lib" value="libgazebo_ros_velodyne_gpu_laser.so" />
+      </xacro:if>
+      <xacro:unless value="${gpu}">
+        <xacro:property name="ray_type" value="ray" />
+        <xacro:property name="plugin_lib" value="libgazebo_ros_velodyne_laser.so" />
+      </xacro:unless>
+
+      <sensor type="${ray_type}" name="${prefix}_sensor">
+         <pose>0 0 0 0 0 0.0</pose>
+         <visualize>false</visualize>
+         <update_rate>${fps}</update_rate>
+         <ray>
+          <scan>
+            <horizontal>
+              <samples>${hsamples}</samples>
+              <min_angle>-${hfov/2.0*M_PI/180.0}</min_angle>
+              <max_angle>${hfov/2.0*M_PI/180.0}</max_angle>
+            </horizontal>
+            <vertical>
+              <samples>${vsamples}</samples>
+              <min_angle>-${vfov/2.0*M_PI/180.0}</min_angle>
+              <max_angle>${vfov/2.0*M_PI/180.0}</max_angle>
+            </vertical>
+          </scan>
+          <range>
+            <min>${range_min}</min>
+            <max>${range_max}</max>
+            <resolution>0.012</resolution>
+          </range>
+          <noise>
+            <type>none</type>
+          </noise>
+        </ray>
+        <plugin name="${prefix}_controller" filename="${plugin_lib}">
+          <topicName>${prefix_topic}/points</topicName>
+          <frameName>/${prefix}_link</frameName>
+          <gaussianNoise>0.008</gaussianNoise>
+        </plugin>
+      </sensor>
+    </gazebo>
+
+  </xacro:macro>
+
+  <xacro:macro name="sensor_ouster1_16" params="prefix parent prefix_topic:='ouster' *origin hsamples fps gpu:=true">
+    <sensor_ouster1 prefix="${prefix}" parent="${parent}" prefix_topic="${prefix_topic}" range_min="0.5" range_max="120.0" hfov="360.0" hsamples="${hsamples}" vfov="32.2" vsamples="16" fps="${fps}" gpu="${gpu}" >
+      <xacro:insert_block name="origin" />
+    </sensor_ouster1>
+  </xacro:macro>
+
+  <xacro:macro name="sensor_ouster1_64" params="prefix parent prefix_topic:='ouster' *origin hsamples fps gpu:=true">
+    <sensor_ouster1 prefix="${prefix}" parent="${parent}" prefix_topic="${prefix_topic}" range_min="0.5" range_max="120.0" hfov="360.0" hsamples="${hsamples}" vfov="32.2" vsamples="64" fps="${fps}" gpu="${gpu}" >
+      <xacro:insert_block name="origin" />
+    </sensor_ouster1>
+  </xacro:macro>
+
+</robot>

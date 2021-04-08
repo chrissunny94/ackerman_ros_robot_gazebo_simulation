@@ -1,0 +1,6 @@
+bool enable
+float64 beep_freq
+float64 time_enabled
+---
+string msg
+bool ret

@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<robot name="sensor_rs_bpearl" xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <xacro:property name="M_PI" value="3.1415926535897931" />
+
+  <xacro:macro name="sensor_rs_bpearl" params="prefix parent prefix_topic *origin range_min range_max hfov samples vfov lasers fps gpu:=^|true">
+
+    <material name="black_alu">
+      <color rgba="0.9 0.9 0.9 1"/>
+    </material>
+
+    <joint name="${prefix}_base_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="${prefix}_base_link" />
+    </joint>
+
+    <link name="${prefix}_base_link">
+      <visual>
+      <!-- origin xyz="0 0 0" rpy="0 0 1.5708"/ -->
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://robotnik_sensors/meshes/rs_bpearl.stl" />
+        </geometry>
+        <material name="black_alu"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://robotnik_sensors/meshes/rs_bpearl.stl" />
+        </geometry>
+      </collision>
+      <inertial>
+        <!-- The following are not reliable values, and should not be used for modeling -->
+        <mass value="0.564" />
+        <origin xyz="0 0 0" />
+        <inertia ixx="0.003881243" ixy="0.0" ixz="0.0" iyy="0.000498940" iyz="0.0" izz="0.003879257" />
+      </inertial>
+    </link>
+
+    <joint name="${prefix}_joint" type="fixed">
+      <parent link="${prefix}_base_link"/>
+      <child link="${prefix}_link" />
+      <origin xyz="0 0 0.06" rpy="0 0 0"/>
+    </joint>
+    <link name="${prefix}_link"/>
+
+  <sensor_rs_bpearl_gazebo range_min="${range_min}" range_max="${range_max}" hfov="${hfov}" samples="${samples}" vfov="${vfov}" lasers="${lasers}" fps="${fps}" gpu="${gpu}"/>
+
+  </xacro:macro>
+
+  <xacro:macro name="sensor_rs_bpearl_gazebo" params="range_min range_max hfov samples vfov lasers fps gpu">
+    <gazebo reference="${prefix}_link">
+      <xacro:if value="${gpu}">
+        <!-- Using GPU needs: https://github.com/RobotnikAutomation/velodyne_simulator -->
+        <xacro:property name="ray_type" value="gpu_ray" />
+        <xacro:property name="plugin_lib" value="libgazebo_ros_velodyne_gpu_laser.so" />
+      </xacro:if>
+      <xacro:unless value="${gpu}">
+        <xacro:property name="ray_type" value="ray" />
+        <xacro:property name="plugin_lib" value="libgazebo_ros_velodyne_laser.so" />
+      </xacro:unless>
+        <sensor type="${ray_type}" name="${prefix}_sensor">
+          <pose>0 0 0 0 0 0.0</pose>
+          <visualize>false</visualize>
+          <update_rate>${fps}</update_rate>
+          <ray>
+            <scan>
+              <horizontal>
+				<!-- for a high quality simulation -->
+                <samples>${samples}</samples>
+                <min_angle>-${hfov/2*M_PI/180.0}</min_angle>
+                <max_angle>${hfov/2*M_PI/180.0}</max_angle>
+              </horizontal>
+              <vertical>
+                <samples>${lasers}</samples>
+                <min_angle>-${5*M_PI/180.0}</min_angle>  <!-- bpearl has 90 degrees of vertical field of view-->
+                <max_angle> ${(vfov-5)*M_PI/180.0}</max_angle>  
+              </vertical>
+            </scan>
+            <range>
+              <min>${range_min}</min>
+              <max>${range_max}</max>
+              <resolution>0.01</resolution>
+            </range>
+            <noise>
+              <type>none</type>
+            </noise>
+          </ray>
+          <plugin name="${prefix}_controller" filename="${plugin_lib}">
+            <topicName>${prefix_topic}/points</topicName>
+            <frameName>/${prefix}_link</frameName>
+            <gaussianNoise>0.008</gaussianNoise>
+          </plugin>
+        </sensor>
+    </gazebo>
+
+  </xacro:macro>
+  
+</robot>

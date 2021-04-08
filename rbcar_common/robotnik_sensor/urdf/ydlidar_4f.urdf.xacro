@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<robot name="sensor_ydlidar_4f" xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <xacro:macro name="sensor_ydlidar_4f" params="prefix parent prefix_topic:='front_laser' *origin">
+
+    <joint name="${prefix}_base_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="${prefix}_base_link"/>
+	  </joint>
+
+
+    <link name="${prefix}_base_link">
+      <inertial>
+        <origin xyz="-0.00029774 0.0066667 0.00013047" rpy="0 0 0" />
+        <mass value="0.15717" />
+        <inertia
+          ixx="6.7885E-05"
+          ixy="-1.3987E-07"
+          ixz="-8.1554E-07"
+          iyy="0.00013173"
+          iyz="-9.0932E-08"
+          izz="7.1972E-05" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://robotnik_sensors/meshes/ydlidar_4f.dae" />
+        </geometry>
+        <material name="">
+          <color rgba="0.64706 0.61961 0.58824 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://robotnik_sensors/meshes/ydlidar_4f.dae" />
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}_joint" type="fixed">
+      <parent link="${prefix}_base_link"/>
+      <child link="${prefix}_link"/>
+      <origin xyz="0.0 0 0.0116" rpy="0 0 0"/>
+	  </joint>
+
+    <link name="${prefix}_link">
+      <inertial>
+        <origin xyz="-0.00036659 0.00064155 -0.00027052" rpy="0 0 0" />
+        <mass value="0.25482" />
+        <inertia
+          ixx="8.9194E-05"
+          ixy="1.8116E-07"
+          ixz="3.6435E-08"
+          iyy="0.00018279"
+          iyz="2.423E-07"
+          izz="0.00011103" />
+      </inertial>
+    </link>
+
+  </xacro:macro>
+</robot>

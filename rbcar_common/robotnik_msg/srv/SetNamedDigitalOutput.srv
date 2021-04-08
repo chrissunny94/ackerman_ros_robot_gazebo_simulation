@@ -1,0 +1,5 @@
+string name
+bool value
+---
+bool ret
+string msg
