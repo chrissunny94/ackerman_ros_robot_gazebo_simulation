@@ -2,7 +2,7 @@
 #### Pre requisites
 
 -  install gazebo 9+
--  works well on ros kinetic
+-  works well on ROS melodic and noetic
 
 
 Install all the other required packages
@@ -15,7 +15,13 @@ Install all the other required packages
 		sudo apt-get update
 		sudo apt-get install gazebo9 gazebo9-* ros-kinetic-gazebo9-*
 		sudo apt upgrade
-		sudo apt-get install libeigen3-dev ros-kinetic-image-view ros-kinetic-parrot-arsdk libprotobuf-dev libprotoc-dev ros-kinetic-joy-teleop ros-kinetic-nav-msgs ros-kinetic-mav-msgs libyaml-cpp-dev ros-kinetic-nodelet ros-kinetic-mav-planning-msgs ros-kinetic-urdf ros-kinetic-image-transport ros-kinetic-roslint ros-kinetic-angles ros-kinetic-cv-bridge ros-kinetic-tf2-geometry-msgs ros-kinetic-xacro ffmpeg libavcodec-dev libavformat-dev libavutil-dev libswscale-dev ros-kinetic-camera-info-manager ros-kinetic-cmake-modules ros-kinetic-gazebo-msgs ros-kinetic-mavros-msgs ros-kinetic-control-toolbox ros-kinetic-mav-msgs ros-kinetic-libmavconn ros-kinetic-mavros ros-kinetic-octomap-msgs ros-kinetic-geographic-msgs ros-kinetic-mavlink ros-kinetic-mavros-extras ros-kinetic-mav-planning-msgs ros-kinetic-joy ros-kinetic-effort-controllers ros-kinetic-velocity-controllers
+		sudo apt-get install libeigen3-dev ffmpeg libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libyaml-cpp-dev libprotobuf-dev libprotoc-dev
+		
+
+Install dependend ROS packages 	
+
+```
+		sudo apt install ros-$ROS_DISTRO-image-view   ros-$ROS_DISTRO-joy-teleop ros-$ROS_DISTRO-nav-msgs  ros-$ROS_DISTRO-nodelet  ros-$ROS_DISTRO-urdf ros-$ROS_DISTRO-image-transport ros-$ROS_DISTRO-roslint ros-$ROS_DISTRO-angles ros-$ROS_DISTRO-cv-bridge ros-$ROS_DISTRO-tf2-geometry-msgs ros-$ROS_DISTRO-xacro ros-$ROS_DISTRO-camera-info-manager ros-$ROS_DISTRO-cmake-modules ros-$ROS_DISTRO-gazebo-msgs ros-$ROS_DISTRO-mavros-msgs ros-$ROS_DISTRO-control-toolbox  ros-$ROS_DISTRO-libmavconn ros-$ROS_DISTRO-mavros ros-$ROS_DISTRO-octomap-msgs ros-$ROS_DISTRO-geographic-msgs ros-$ROS_DISTRO-mavlink ros-$ROS_DISTRO-mavros-extras  ros-$ROS_DISTRO-joy ros-$ROS_DISTRO-effort-controllers ros-$ROS_DISTRO-velocity-controllers
 
 
 
