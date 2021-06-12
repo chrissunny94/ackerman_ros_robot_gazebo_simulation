@@ -31,7 +31,7 @@ Other Dependend packages
 Install dependend ROS packages 	
 
 ```
-		sudo apt install ros-$ROS_DISTRO-image-view   ros-$ROS_DISTRO-joy-teleop ros-$ROS_DISTRO-nav-msgs  ros-$ROS_DISTRO-nodelet  ros-$ROS_DISTRO-urdf ros-$ROS_DISTRO-image-transport ros-$ROS_DISTRO-roslint ros-$ROS_DISTRO-angles ros-$ROS_DISTRO-cv-bridge ros-$ROS_DISTRO-tf2-geometry-msgs ros-$ROS_DISTRO-xacro ros-$ROS_DISTRO-camera-info-manager ros-$ROS_DISTRO-cmake-modules ros-$ROS_DISTRO-gazebo-msgs ros-$ROS_DISTRO-mavros-msgs ros-$ROS_DISTRO-control-toolbox  ros-$ROS_DISTRO-libmavconn ros-$ROS_DISTRO-mavros ros-$ROS_DISTRO-octomap-msgs ros-$ROS_DISTRO-geographic-msgs ros-$ROS_DISTRO-mavlink ros-$ROS_DISTRO-mavros-extras  ros-$ROS_DISTRO-joy ros-$ROS_DISTRO-effort-controllers ros-$ROS_DISTRO-ackermann-msgs ros-$ROS_DISTRO-pr2-description ros-$ROS_DISTRO-velodyne-description
+		sudo apt install ros-$ROS_DISTRO-image-view   ros-$ROS_DISTRO-joy-teleop ros-$ROS_DISTRO-nav-msgs  ros-$ROS_DISTRO-nodelet  ros-$ROS_DISTRO-urdf ros-$ROS_DISTRO-image-transport ros-$ROS_DISTRO-roslint ros-$ROS_DISTRO-angles ros-$ROS_DISTRO-cv-bridge ros-$ROS_DISTRO-tf2-geometry-msgs ros-$ROS_DISTRO-xacro ros-$ROS_DISTRO-camera-info-manager ros-$ROS_DISTRO-cmake-modules ros-$ROS_DISTRO-gazebo-msgs ros-$ROS_DISTRO-mavros-msgs ros-$ROS_DISTRO-control-toolbox  ros-$ROS_DISTRO-libmavconn ros-$ROS_DISTRO-mavros ros-$ROS_DISTRO-octomap-msgs ros-$ROS_DISTRO-geographic-msgs ros-$ROS_DISTRO-mavlink ros-$ROS_DISTRO-mavros-extras  ros-$ROS_DISTRO-joy ros-$ROS_DISTRO-effort-controllers ros-$ROS_DISTRO-ackermann-msgs ros-$ROS_DISTRO-pr2-description ros-$ROS_DISTRO-velodyne-description ros-$ROS_DISTRO-gmapping
 
 
 
