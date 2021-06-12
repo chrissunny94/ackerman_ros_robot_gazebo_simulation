@@ -38,6 +38,13 @@ Install dependend ROS packages
 ```
 
 
+Download gazebo models 
+
+```
+cd ~/.gazebo
+git clone https://github.com/osrf/gazebo_models models/
+```
+
 
 
 ### How to run the gazebo sim
