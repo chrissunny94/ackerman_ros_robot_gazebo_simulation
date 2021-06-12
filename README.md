@@ -7,6 +7,7 @@
 
 Install all the other required packages
 
+Gazebo 9 setup , *only required for ROS Kinetic*
 ```
 
 		sudo apt-get remove ros-kinetic-gazebo* gazebo*
@@ -14,6 +15,11 @@ Install all the other required packages
 		wget http://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
 		sudo apt-get update
 		sudo apt-get install gazebo9 gazebo9-* ros-kinetic-gazebo9-*
+
+```
+
+
+```
 		sudo apt upgrade
 		sudo apt-get install libeigen3-dev ffmpeg libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libyaml-cpp-dev libprotobuf-dev libprotoc-dev
 		
