@@ -8,5 +8,5 @@ git config --global credential.helper cache
 git add -A
 
 git commit -m "New changes"
-git push -u origin master
+git push
 
